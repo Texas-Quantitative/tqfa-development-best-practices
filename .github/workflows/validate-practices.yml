@@ -1,0 +1,197 @@
+name: Validate Best Practices Templates
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  schedule:
+    # Run weekly to catch any issues with external dependencies
+    - cron: '0 0 * * 0'
+
+jobs:
+  validate-setup-scripts:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.10", "3.11", "3.12"]
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v4
+      with:
+        python-version: ${{ matrix.python-version }}
+    
+    - name: Test Python setup script
+      run: |
+        # Test the setup script can run without errors
+        python scripts/setup-new-project.py --help
+        
+        # Test creating a sample project
+        python scripts/setup-new-project.py test-project --no-download
+        
+        # Verify project structure was created correctly
+        test -d test-project/app
+        test -d test-project/docs/best-practices
+        test -d test-project/scripts
+        test -f test-project/requirements.txt
+        test -f test-project/Dockerfile
+        test -f test-project/app/main.py
+        
+        # Test the generated FastAPI app can start
+        cd test-project
+        pip install fastapi uvicorn
+        timeout 10s python -m app.main &
+        sleep 5
+        curl -f http://localhost:8000/health/ || exit 1
+
+  validate-powershell-script:
+    runs-on: windows-latest
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Test PowerShell setup script
+      shell: pwsh
+      run: |
+        # Test the PowerShell script can run without errors
+        Get-Help ./scripts/setup-new-project.ps1
+        
+        # Test creating a sample project
+        ./scripts/setup-new-project.ps1 -ProjectName "test-project-ps" -NoDownload
+        
+        # Verify project structure was created correctly
+        Test-Path test-project-ps/app -PathType Container
+        Test-Path test-project-ps/docs/best-practices -PathType Container
+        Test-Path test-project-ps/requirements.txt -PathType Leaf
+        Test-Path test-project-ps/Dockerfile -PathType Leaf
+        Test-Path test-project-ps/app/main.py -PathType Leaf
+
+  validate-documentation:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Check documentation links
+      run: |
+        # Install markdown link checker
+        npm install -g markdown-link-check
+        
+        # Check all markdown files for broken links
+        find . -name "*.md" -exec markdown-link-check {} \;
+    
+    - name: Validate documentation structure
+      run: |
+        # Ensure all required documentation exists
+        test -f README.md
+        test -f docs/best-practices/README.md
+        test -f docs/best-practices/docker-deployment.md
+        test -f docs/best-practices/scripts-and-tools.md
+        test -f docs/best-practices/troubleshooting.md
+        test -f docs/templates/copilot-instructions-template.md
+        
+        # Check that scripts exist
+        test -f scripts/bump_version.py
+        test -f scripts/check_deployment.py
+        test -f scripts/promote_healthy_revision.py
+        test -f scripts/setup-new-project.py
+        test -f scripts/setup-new-project.ps1
+
+  test-example-projects:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: "3.11"
+    
+    - name: Test full project creation and deployment readiness
+      run: |
+        # Create a test project with all features
+        python scripts/setup-new-project.py full-test-project --no-download
+        cd full-test-project
+        
+        # Install dependencies
+        pip install -r requirements.txt
+        
+        # Test that the app can start successfully
+        timeout 15s python -m app.main &
+        sleep 10
+        
+        # Test all required endpoints
+        curl -f http://localhost:8000/ | grep "full-test-project API"
+        curl -f http://localhost:8000/health/ | grep "healthy"
+        curl -f http://localhost:8000/docs
+        
+        # Test Docker build (without running to save time)
+        docker build -t test-app .
+        
+        # Validate that best practices files exist and are readable
+        test -s docs/best-practices/docker-deployment.md
+        test -s docs/best-practices/troubleshooting.md
+        test -s scripts/bump_version.py
+        
+        # Test version management script
+        python scripts/bump_version.py --help
+
+  validate-docker-templates:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Test Dockerfile template builds successfully
+      run: |
+        # Create a test project
+        python scripts/setup-new-project.py docker-test --no-download
+        cd docker-test
+        
+        # Test Docker build
+        docker build -t docker-test .
+        
+        # Test container runs and health check works
+        docker run -d --name test-container -p 8000:8000 docker-test
+        sleep 30  # Wait for startup
+        
+        # Test health endpoint
+        curl -f http://localhost:8000/health/ | grep "healthy"
+        
+        # Test that health check passes in Docker
+        docker inspect --format='{{.State.Health.Status}}' test-container | grep "healthy"
+        
+        # Cleanup
+        docker stop test-container
+        docker rm test-container
+
+  security-scan:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Run security scan on generated requirements
+      run: |
+        python scripts/setup-new-project.py security-test --no-download
+        cd security-test
+        
+        # Install safety for dependency security scanning
+        pip install safety
+        
+        # Check for known security vulnerabilities
+        safety check -r requirements.txt
+    
+    - name: Scan Dockerfile for best practices
+      run: |
+        # Install hadolint for Dockerfile linting
+        wget -O hadolint https://github.com/hadolint/hadolint/releases/latest/download/hadolint-Linux-x86_64
+        chmod +x hadolint
+        
+        # Create test project and scan Dockerfile
+        python scripts/setup-new-project.py hadolint-test --no-download
+        ./hadolint hadolint-test/Dockerfile
