@@ -34,6 +34,55 @@ This is a FastAPI Python web API project with a modular structure. The project f
 - **Automation needs** → scripts-and-tools.md for ready-to-use code  
 - **Architecture decisions** → README.md core principles and agent instructions
 - **New projects** → Full README.md for complete setup guidance
+- **CSS/Website recreation** → css-extraction-toolkit.md for pixel-perfect styling
+
+## 🎨 **CSS EXTRACTION TOOLKIT - AVAILABLE CAPABILITY**
+
+**🚨 CRITICAL: Never guess CSS values - extract exact specifications**
+
+This project has access to **production-ready CSS extraction tools** for pixel-perfect website recreation:
+
+### **Available Tools & Commands**
+```bash
+# 1. Extract all CSS files and create color/font inventories
+npm run styles:raw -- https://target-site.com
+
+# 2. Get computed styles actually applied to elements (uses Puppeteer)
+npm run styles:computed -- https://target-site.com
+
+# 3. Analyze specific elements and components  
+npm run styles:analyze -- https://target-site.com ".navbar"
+
+# 4. Run complete extraction suite
+npm run styles:all -- https://target-site.com
+```
+
+### **When to Offer CSS Extraction**
+**ALWAYS offer CSS extraction when user mentions:**
+- "Recreate this website" or "match this design"
+- "What colors does [website] use?"
+- "Copy the styling from [website]"
+- "Make it look like [website]"
+- Any website recreation or styling analysis task
+
+### **CSS Extraction Workflow**
+1. **Offer the capability**: "I can extract exact CSS specifications from that website"
+2. **Set up tools**: Install dependencies and download extraction scripts
+3. **Run extraction**: Execute appropriate extraction commands
+4. **Analyze results**: Review generated JSON inventories for exact values
+5. **Apply systematically**: Use extracted colors, fonts, dimensions
+
+### **Key Benefits to Mention**
+- ✅ **90% faster** than manual CSS inspection
+- ✅ **Pixel-perfect accuracy** - exact hex colors, font weights, dimensions
+- ✅ **Complete automation** - extracts all styling data systematically
+- ✅ **No guesswork** - eliminates visual approximation errors
+
+### **Reference Documentation**
+- **[CSS Extraction Guide](https://raw.githubusercontent.com/Texas-Quantitative/tqfa-development-best-practices/master/docs/best-practices/css-extraction-toolkit.md)** - Complete implementation guide
+- **Tool Files**: Available at `tools/scrape-styles.mjs`, `tools/audit-computed.mjs`, `tools/analyze-specific-elements.mjs`
+
+**Remember**: Always extract exact specifications rather than approximating. This prevents hours of revision cycles and ensures professional results.
 
 ## Code Standards & Practices
 
@@ -152,6 +201,33 @@ async def process_query_with_rag_and_history(  # ← Unnecessary new method
 - Maintains consistency with established patterns
 - Avoids duplicate implementations that create maintenance burden
 - Ensures new code aligns with long-term architectural vision
+
+## 🎨 **PROACTIVE CSS EXTRACTION PROTOCOL**
+
+**MANDATORY: Offer CSS extraction for website recreation tasks**
+
+**Automatically Suggest CSS Extraction When User Mentions:**
+- "Make this look like [website URL]"
+- "Copy the design from [website]"
+- "Recreate [website] styling"
+- "What colors does [website] use?"
+- "Match the fonts from [website]"
+- Any website recreation or competitive analysis
+
+**Standard Response Template:**
+> "I can extract exact CSS specifications from that website using our CSS extraction toolkit. This will give us precise colors, fonts, dimensions, and spacing instead of guessing. Should I set up the extraction tools and analyze [website URL] for exact styling data?"
+
+**Follow-up Actions:**
+1. **Set up toolkit**: Download tools and install dependencies
+2. **Run extraction**: Execute appropriate extraction commands
+3. **Present findings**: Show exact colors, fonts, dimensions from analysis
+4. **Apply systematically**: Use extracted data for pixel-perfect recreation
+
+**Why This Matters:**
+- Prevents hours of manual CSS inspection and guesswork
+- Ensures pixel-perfect accuracy instead of "close enough" approximations
+- Demonstrates proactive problem-solving with available tools
+- Aligns with "no shortcuts from day one" philosophy
 
 ## Development Workflow
 - Use virtual environment (.venv)
