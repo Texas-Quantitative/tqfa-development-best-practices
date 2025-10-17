@@ -92,12 +92,18 @@ rm -rf temp-practices
 - **[docker-deployment.md](./docs/best-practices/docker-deployment.md)** - Azure Container Apps deployment (fixes traffic routing issues)
 - **[scripts-and-tools.md](./docs/best-practices/scripts-and-tools.md)** - Production-ready automation scripts
 - **[troubleshooting.md](./docs/best-practices/troubleshooting.md)** - Common deployment failures and solutions
+- **[css-extraction-toolkit.md](./docs/best-practices/css-extraction-toolkit.md)** - Automated CSS extraction for pixel-perfect website recreation
 - **[README.md](./docs/best-practices/README.md)** - Navigation guide for all practices
 
 ### **Templates**
 - **[copilot-instructions-template.md](./docs/templates/copilot-instructions-template.md)** - AI agent guidance template
 - **Project structure examples** (coming soon)
 - **Dockerfile templates** (coming soon)
+
+### **CSS Extraction Tools**
+- **[scrape-styles.mjs](./tools/scrape-styles.mjs)** - Extract raw CSS files and create color/font inventories
+- **[audit-computed.mjs](./tools/audit-computed.mjs)** - Analyze actual computed styles applied to elements
+- **[analyze-specific-elements.mjs](./tools/analyze-specific-elements.mjs)** - Deep analysis of specific components
 
 ### **Automation Scripts**
 - **[bump_version.py](./scripts/bump_version.py)** - Automated version management for deployments

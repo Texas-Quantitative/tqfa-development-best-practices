@@ -92,6 +92,7 @@ This guide is split into focused documents for easy reference and reuse:
 - **[FastAPI Architecture](./fastapi-architecture.md)** - Project structure, API design, best practices
 - **[Code Standards](./code-standards.md)** - Python style, type hints, testing approaches
 - **[Security Practices](./security.md)** - Authentication, secrets management, secure coding
+- **[CSS Extraction Toolkit](./css-extraction-toolkit.md)** - Automated CSS extraction for pixel-perfect website recreation
 
 ### ☁️ **Azure & Infrastructure**
 - **[Azure Resources Guide](./azure-resources.md)** - Resource management, Key Vault, storage
