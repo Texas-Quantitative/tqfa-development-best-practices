@@ -12,23 +12,28 @@ This is a FastAPI Python web API project with a modular structure. The project f
 
 **Production-Ready From Day One Rule**: If you wouldn't trust it with real customer traffic, don't deploy it to UAT. Every system component must be production-ready from first deployment.
 
-## 📚 **REFERENCE: Modular Best Practices Documentation**
+## 📚 **REFERENCE: TQFA Best Practices (GitHub Direct Access)**
 
-This project uses modular documentation for easy reference and reuse:
+**🌐 Primary Repository**: `https://github.com/Texas-Quantitative/tqfa-development-best-practices`
 
-**🔗 GitHub Repository**: `https://github.com/Texas-Quantitative/tqfaAPI/tree/main/docs/best-practices`
+**📖 Core Documentation (Always Current from GitHub)**:
+- **[Main Overview](https://raw.githubusercontent.com/Texas-Quantitative/tqfa-development-best-practices/master/README.md)** - Essential principles and quick reference
+- **[Best Practices Guide](https://raw.githubusercontent.com/Texas-Quantitative/tqfa-development-best-practices/master/docs/best-practices/README.md)** - Navigation and architecture principles
+- **[Docker/Deployment](https://raw.githubusercontent.com/Texas-Quantitative/tqfa-development-best-practices/master/docs/best-practices/docker-deployment.md)** - Azure Container Apps, traffic management, health checks
+- **[Scripts & Tools](https://raw.githubusercontent.com/Texas-Quantitative/tqfa-development-best-practices/master/docs/best-practices/scripts-and-tools.md)** - Production-ready automation scripts
+- **[Troubleshooting](https://raw.githubusercontent.com/Texas-Quantitative/tqfa-development-best-practices/master/docs/best-practices/troubleshooting.md)** - Common issues and solutions
 
-**Primary Reference**: `TQFA_DEVELOPMENT_BEST_PRACTICES.md` - Essential principles and quick reference
-
-**Detailed Guides** in `docs/best-practices/`:
-- **[docker-deployment.md](./docs/best-practices/docker-deployment.md)** - Azure Container Apps, traffic management, health checks, container issues
-- **[scripts-and-tools.md](./docs/best-practices/scripts-and-tools.md)** - Production-ready automation scripts with code examples
-- **[troubleshooting.md](./docs/best-practices/troubleshooting.md)** - Common issues and detailed solutions
+**🎯 Agent Workflow**:
+1. **Check accessibility**: Verify GitHub connection if links fail
+2. **Reference specific guides**: Use direct links above for current project context
+3. **Apply lessons**: Follow architectural principles and deployment practices
+4. **Download scripts**: Use curl/Invoke-WebRequest for automation scripts
 
 **When to Reference Each Guide**:
-- **Deployment issues** → Check docker-deployment.md and troubleshooting.md
-- **Automation needs** → Use scripts-and-tools.md for ready-to-use code
-- **New projects** → Copy entire docs/best-practices/ directory or reference GitHub links above
+- **Deployment issues** → docker-deployment.md and troubleshooting.md
+- **Automation needs** → scripts-and-tools.md for ready-to-use code  
+- **Architecture decisions** → README.md core principles and agent instructions
+- **New projects** → Full README.md for complete setup guidance
 
 ## Code Standards & Practices
 

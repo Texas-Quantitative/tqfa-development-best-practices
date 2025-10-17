@@ -8,9 +8,69 @@
 
 ---
 
-## 🚀 **Quick Start - Add to Your Project**
+## ⚡ **QUICK IMPLEMENTATION - 30 SECONDS**
 
-### **Option 1: Copy Entire Best Practices (Recommended)**
+**For VSCode Copilot Agent - Just say:**
+
+```
+"Set up TQFA best practices for this project using the template at: 
+https://raw.githubusercontent.com/Texas-Quantitative/tqfa-development-best-practices/master/docs/templates/copilot-instructions-template.md"
+```
+
+**That's it!** The agent will create `.github/copilot-instructions.md` with direct GitHub references to all best practices.
+
+---
+
+## 🤖 **FOR VSCODE COPILOT AGENTS - IMPLEMENTATION PROMPTS**
+
+### **🆕 New Project Setup**
+**Copy this prompt to set up best practices in a new project:**
+
+> Please set up TQFA best practices for this new project. Create a `.github/copilot-instructions.md` file that references the TQFA best practices directly from GitHub. Use this template: https://raw.githubusercontent.com/Texas-Quantitative/tqfa-development-best-practices/master/docs/templates/copilot-instructions-template.md
+> 
+> Also download these essential scripts to the project root:
+> - https://raw.githubusercontent.com/Texas-Quantitative/tqfa-development-best-practices/master/scripts/bump_version.py
+> - https://raw.githubusercontent.com/Texas-Quantitative/tqfa-development-best-practices/master/scripts/check_deployment.py
+> 
+> Update the copilot instructions with this project's specific name and details.
+
+### **🔄 Add to Existing Project**
+**Copy this prompt to add best practices to an existing project:**
+
+> Please add TQFA best practices to this existing project. Create `.github/copilot-instructions.md` if it doesn't exist, or update it to include TQFA best practices references. Use the template from: https://raw.githubusercontent.com/Texas-Quantitative/tqfa-development-best-practices/master/docs/templates/copilot-instructions-template.md
+> 
+> Download the automation scripts we need:
+> - bump_version.py for deployment version management
+> - check_deployment.py for deployment validation
+> 
+> Make sure the copilot instructions reference the live GitHub best practices documentation.
+
+### **🚨 Emergency Reference**
+**When you need immediate access to best practices during development:**
+
+> Please reference the TQFA best practices for this issue. Check:
+> - Main guide: https://raw.githubusercontent.com/Texas-Quantitative/tqfa-development-best-practices/master/README.md
+> - Deployment issues: https://raw.githubusercontent.com/Texas-Quantitative/tqfa-development-best-practices/master/docs/best-practices/docker-deployment.md  
+> - Troubleshooting: https://raw.githubusercontent.com/Texas-Quantitative/tqfa-development-best-practices/master/docs/best-practices/troubleshooting.md
+> 
+> Apply the relevant guidance to solve this problem using proven practices.
+
+---
+
+## 📋 **Manual Setup Instructions**
+
+### **Option 1: GitHub Direct Access (Recommended)**
+No local files needed - just reference directly from GitHub:
+
+```markdown
+# Add to your .github/copilot-instructions.md
+## 📚 **BEST PRACTICES REFERENCE**
+- **[Main Guide](https://raw.githubusercontent.com/Texas-Quantitative/tqfa-development-best-practices/master/README.md)**
+- **[Deployment](https://raw.githubusercontent.com/Texas-Quantitative/tqfa-development-best-practices/master/docs/best-practices/docker-deployment.md)**
+- **[Troubleshooting](https://raw.githubusercontent.com/Texas-Quantitative/tqfa-development-best-practices/master/docs/best-practices/troubleshooting.md)**
+```
+
+### **Option 2: Copy Files to Project**
 ```bash
 # Clone this template
 git clone https://github.com/Texas-Quantitative/tqfa-development-best-practices.git temp-practices
@@ -22,17 +82,6 @@ cp temp-practices/docs/templates/copilot-instructions-template.md your-project/.
 
 # Cleanup
 rm -rf temp-practices
-```
-
-### **Option 2: Download Specific Guides**
-```bash
-# Individual best practice guides
-curl -O https://raw.githubusercontent.com/Texas-Quantitative/tqfa-development-best-practices/main/docs/best-practices/docker-deployment.md
-curl -O https://raw.githubusercontent.com/Texas-Quantitative/tqfa-development-best-practices/main/docs/best-practices/troubleshooting.md
-
-# Essential scripts
-curl -O https://raw.githubusercontent.com/Texas-Quantitative/tqfa-development-best-practices/main/scripts/bump_version.py
-curl -O https://raw.githubusercontent.com/Texas-Quantitative/tqfa-development-best-practices/main/scripts/check_deployment.py
 ```
 
 ---
