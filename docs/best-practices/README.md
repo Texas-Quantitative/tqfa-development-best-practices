@@ -93,6 +93,7 @@ This guide is split into focused documents for easy reference and reuse:
 - **[Code Standards](./code-standards.md)** - Python style, type hints, testing approaches
 - **[Security Practices](./security.md)** - Authentication, secrets management, secure coding
 - **[CSS Extraction Toolkit](./css-extraction-toolkit.md)** - Automated CSS extraction for pixel-perfect website recreation
+- **[Responsive Analysis Methodology](./responsive-analysis-methodology.md)** - Multi-breakpoint responsive analysis (CRITICAL discovery)
 
 ### ☁️ **Azure & Infrastructure**
 - **[Azure Resources Guide](./azure-resources.md)** - Resource management, Key Vault, storage

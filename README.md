@@ -93,6 +93,7 @@ rm -rf temp-practices
 - **[scripts-and-tools.md](./docs/best-practices/scripts-and-tools.md)** - Production-ready automation scripts
 - **[troubleshooting.md](./docs/best-practices/troubleshooting.md)** - Common deployment failures and solutions
 - **[css-extraction-toolkit.md](./docs/best-practices/css-extraction-toolkit.md)** - Automated CSS extraction for pixel-perfect website recreation
+- **[responsive-analysis-methodology.md](./docs/best-practices/responsive-analysis-methodology.md)** - Multi-breakpoint responsive analysis (CRITICAL discovery)
 - **[README.md](./docs/best-practices/README.md)** - Navigation guide for all practices
 
 ### **Templates**
@@ -101,6 +102,7 @@ rm -rf temp-practices
 - **Dockerfile templates** (coming soon)
 
 ### **CSS Extraction Tools**
+- **[analyze-responsive.mjs](./tools/analyze-responsive.mjs)** - Multi-breakpoint responsive analysis (MANDATORY FIRST STEP)
 - **[scrape-styles.mjs](./tools/scrape-styles.mjs)** - Extract raw CSS files and create color/font inventories
 - **[audit-computed.mjs](./tools/audit-computed.mjs)** - Analyze actual computed styles applied to elements
 - **[analyze-specific-elements.mjs](./tools/analyze-specific-elements.mjs)** - Deep analysis of specific components

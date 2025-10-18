@@ -4,10 +4,11 @@
   "description": "Automated CSS extraction tools for pixel-perfect website recreation",
   "type": "module",
   "scripts": {
+    "styles:responsive": "node tools/analyze-responsive.mjs",
     "styles:raw": "node tools/scrape-styles.mjs",
     "styles:computed": "node tools/audit-computed.mjs",
     "styles:analyze": "node tools/analyze-specific-elements.mjs",
-    "styles:all": "npm run styles:raw && npm run styles:computed && npm run styles:analyze",
+    "styles:complete": "npm run styles:responsive && npm run styles:computed && npm run styles:analyze",
     "setup": "mkdir -p tools orig && npm install"
   },
   "devDependencies": {

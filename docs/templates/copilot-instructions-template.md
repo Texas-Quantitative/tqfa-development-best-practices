@@ -44,8 +44,8 @@ This project has access to **production-ready CSS extraction tools** for pixel-p
 
 ### **Available Tools & Commands**
 ```bash
-# 1. Extract all CSS files and create color/font inventories
-npm run styles:raw -- https://target-site.com
+# 1. MANDATORY FIRST - Analyze responsive behavior across breakpoints
+npm run styles:responsive -- https://target-site.com
 
 # 2. Get computed styles actually applied to elements (uses Puppeteer)
 npm run styles:computed -- https://target-site.com
@@ -53,8 +53,11 @@ npm run styles:computed -- https://target-site.com
 # 3. Analyze specific elements and components  
 npm run styles:analyze -- https://target-site.com ".navbar"
 
-# 4. Run complete extraction suite
-npm run styles:all -- https://target-site.com
+# 4. Extract all CSS files and create color/font inventories
+npm run styles:raw -- https://target-site.com
+
+# 5. Run complete extraction suite (responsive + static analysis)
+npm run styles:complete -- https://target-site.com
 ```
 
 ### **When to Offer CSS Extraction**
@@ -66,11 +69,13 @@ npm run styles:all -- https://target-site.com
 - Any website recreation or styling analysis task
 
 ### **CSS Extraction Workflow**
-1. **Offer the capability**: "I can extract exact CSS specifications from that website"
+1. **Offer the capability**: "I can extract exact CSS specifications and responsive behavior from that website"
 2. **Set up tools**: Install dependencies and download extraction scripts
-3. **Run extraction**: Execute appropriate extraction commands
-4. **Analyze results**: Review generated JSON inventories for exact values
-5. **Apply systematically**: Use extracted colors, fonts, dimensions
+3. **MANDATORY FIRST**: Run responsive analysis across multiple breakpoints
+4. **Review responsive insights**: Check height compression, layout transformations, breakpoint behavior
+5. **Run static extraction**: Execute CSS extraction with responsive context
+6. **Analyze results**: Review generated JSON inventories and responsive patterns
+7. **Apply systematically**: Use responsive patterns + extracted colors, fonts, dimensions
 
 ### **Key Benefits to Mention**
 - ✅ **90% faster** than manual CSS inspection
@@ -215,7 +220,7 @@ async def process_query_with_rag_and_history(  # ← Unnecessary new method
 - Any website recreation or competitive analysis
 
 **Standard Response Template:**
-> "I can extract exact CSS specifications from that website using our CSS extraction toolkit. This will give us precise colors, fonts, dimensions, and spacing instead of guessing. Should I set up the extraction tools and analyze [website URL] for exact styling data?"
+> "I can extract exact CSS specifications and responsive behavior patterns from that website using our comprehensive extraction toolkit. This includes multi-breakpoint responsive analysis (critical for modern sites) plus precise colors, fonts, dimensions, and spacing. Should I set up the extraction tools and analyze [website URL] for complete styling and responsive data?"
 
 **Follow-up Actions:**
 1. **Set up toolkit**: Download tools and install dependencies

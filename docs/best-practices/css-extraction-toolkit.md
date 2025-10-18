@@ -23,7 +23,25 @@
 
 ## 🛠️ **Core Tools to Implement**
 
-### **1. Raw CSS Extraction Tool**
+### **1. Multi-Breakpoint Responsive Analyzer (MANDATORY FIRST STEP)**
+**File**: `tools/analyze-responsive.mjs`
+
+**Purpose**: Analyze responsive behavior patterns across multiple viewport sizes - **CRITICAL FOR MODERN SITES**
+
+**Key Features**:
+- Test 7 standard breakpoints (mobile to desktop large)
+- Detect height compression patterns (mobile → desktop)
+- Identify layout method transitions (Grid → Flex → Block)
+- Map container behavior changes at breakpoints
+- Generate responsive insights and transformation data
+
+**Why This Must Come First**:
+- Modern sites have 30-50% height compression from mobile to desktop
+- Static CSS extraction misses viewport-relative scaling
+- Layout methods change at specific breakpoints
+- Container behavior transforms at precise pixel widths
+
+### **2. Raw CSS Extraction Tool**
 **File**: `tools/scrape-styles.mjs`
 
 **Purpose**: Extract all CSS files and create comprehensive color/font inventories
@@ -35,7 +53,7 @@
 - Save raw CSS files and generate JSON inventory
 - Handle multiple CSS files and @import statements
 
-### **2. Computed Styles Analyzer**
+### **3. Computed Styles Analyzer**
 **File**: `tools/audit-computed.mjs`
 
 **Purpose**: Get actual computed styles applied to elements (not just raw CSS)
@@ -47,7 +65,7 @@
 - Filter out unused/theoretical styles
 - Generate clean JSON with applied styling only
 
-### **3. Element-Specific Analyzer**
+### **4. Element-Specific Analyzer**
 **File**: `tools/analyze-specific-elements.mjs`
 
 **Purpose**: Deep analysis of specific components and elements
@@ -68,10 +86,11 @@ Add these scripts to your package.json:
 ```json
 {
   "scripts": {
+    "styles:responsive": "node tools/analyze-responsive.mjs",
     "styles:raw": "node tools/scrape-styles.mjs",
     "styles:computed": "node tools/audit-computed.mjs", 
     "styles:analyze": "node tools/analyze-specific-elements.mjs",
-    "styles:all": "npm run styles:raw && npm run styles:computed && npm run styles:analyze"
+    "styles:complete": "npm run styles:responsive && npm run styles:computed && npm run styles:analyze"
   }
 }
 ```
@@ -113,17 +132,23 @@ curl -O https://raw.githubusercontent.com/Texas-Quantitative/tqfa-development-be
 
 ### **Phase 2: CSS Extraction (Per Target Site)**
 ```bash
-# Extract all raw CSS and create inventories
-npm run styles:raw -- https://target-site.com/
+# STEP 1: MANDATORY - Analyze responsive behavior first
+npm run styles:responsive -- https://target-site.com/
 
-# Get computed styles actually applied to elements  
+# STEP 2: Review responsive insights before proceeding
+cat orig/_responsive-report.md
+
+# STEP 3: Extract static CSS with responsive context
 npm run styles:computed -- https://target-site.com/
 
-# Analyze specific elements and components
+# STEP 4: Analyze specific elements
 npm run styles:analyze -- https://target-site.com/
 
-# Or run all at once
-npm run styles:all -- https://target-site.com/
+# STEP 5: Extract raw CSS for color/font inventories  
+npm run styles:raw -- https://target-site.com/
+
+# Or run complete analysis suite
+npm run styles:complete -- https://target-site.com/
 ```
 
 ### **Phase 3: Analysis and Application**
