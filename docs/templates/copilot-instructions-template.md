@@ -47,16 +47,19 @@ This project has access to **production-ready CSS extraction tools** for pixel-p
 # 1. MANDATORY FIRST - Analyze responsive behavior across breakpoints
 npm run styles:responsive -- https://target-site.com
 
-# 2. Get computed styles actually applied to elements (uses Puppeteer)
+# 2. MANDATORY SECOND - Comprehensive element detection and positioning analysis
+npm run analyze:comprehensive -- https://target-site.com
+
+# 3. Get computed styles actually applied to elements (uses Puppeteer)
 npm run styles:computed -- https://target-site.com
 
-# 3. Analyze specific elements and components  
+# 4. Analyze specific elements and components  
 npm run styles:analyze -- https://target-site.com ".navbar"
 
-# 4. Extract all CSS files and create color/font inventories
+# 5. Extract all CSS files and create color/font inventories
 npm run styles:raw -- https://target-site.com
 
-# 5. Run complete extraction suite (responsive + static analysis)
+# 6. Run complete analysis suite (responsive + comprehensive + computed)
 npm run styles:complete -- https://target-site.com
 ```
 
@@ -72,10 +75,17 @@ npm run styles:complete -- https://target-site.com
 1. **Offer the capability**: "I can extract exact CSS specifications and responsive behavior from that website"
 2. **Set up tools**: Install dependencies and download extraction scripts
 3. **MANDATORY FIRST**: Run responsive analysis across multiple breakpoints
-4. **Review responsive insights**: Check height compression, layout transformations, breakpoint behavior
-5. **Run static extraction**: Execute CSS extraction with responsive context
-6. **Analyze results**: Review generated JSON inventories and responsive patterns
-7. **Apply systematically**: Use responsive patterns + extracted colors, fonts, dimensions
+4. **MANDATORY SECOND**: Run comprehensive element detection and positioning analysis
+5. **Review insights**: Check responsive patterns, element positioning, typography hierarchy
+6. **Run static extraction**: Execute CSS extraction with full context
+7. **Analyze results**: Review generated JSON inventories, reports, and screenshots
+8. **Apply systematically**: Use responsive patterns + positioning data + extracted styling
+
+### **Development Workflow Standards**
+- **Single-port discipline**: Use port 8080 only (`npm run dev:stable`)
+- **Process management**: Clean termination with `taskkill /f /im node.exe` when needed
+- **Measure don't guess**: Use precise measurements from analysis tools
+- **Visual verification**: Side-by-side comparison with original site
 
 ### **Key Benefits to Mention**
 - ✅ **90% faster** than manual CSS inspection

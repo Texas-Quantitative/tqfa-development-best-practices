@@ -5,10 +5,12 @@
   "type": "module",
   "scripts": {
     "styles:responsive": "node tools/analyze-responsive.mjs",
+    "analyze:comprehensive": "node tools/comprehensive-site-analyzer.js",
     "styles:raw": "node tools/scrape-styles.mjs",
     "styles:computed": "node tools/audit-computed.mjs",
     "styles:analyze": "node tools/analyze-specific-elements.mjs",
-    "styles:complete": "npm run styles:responsive && npm run styles:computed && npm run styles:analyze",
+    "styles:complete": "npm run styles:responsive && npm run analyze:comprehensive && npm run styles:computed",
+    "dev:stable": "npx eleventy --serve --port=8080",
     "setup": "mkdir -p tools orig && npm install"
   },
   "devDependencies": {

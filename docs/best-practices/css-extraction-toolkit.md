@@ -41,7 +41,28 @@
 - Layout methods change at specific breakpoints
 - Container behavior transforms at precise pixel widths
 
-### **2. Raw CSS Extraction Tool**
+### **2. Comprehensive Site Analyzer (MANDATORY SECOND STEP)**
+**File**: `tools/comprehensive-site-analyzer.js`
+
+**Purpose**: Advanced element detection, positioning, and styling analysis with multi-selector fallback patterns
+
+**Key Features**:
+- Multi-selector fallback arrays for robust element finding
+- Relative positioning calculations using `getBoundingClientRect()`
+- Background image detection for automatic section identification
+- Typography hierarchy mapping with font-size, line-height relationships
+- Form element comprehensive analysis with styling extraction
+- Visual documentation with targeted screenshots
+- CSS Grid and Flexbox layout pattern detection
+
+**Why This Must Come Second**:
+- Provides precise positioning data for layout implementation
+- Detects elements that static CSS extraction might miss
+- Maps visual hierarchy and component relationships
+- Captures exact measurements for pixel-perfect recreation
+
+### **3. Raw CSS Extraction Tool**
+### **3. Raw CSS Extraction Tool**
 **File**: `tools/scrape-styles.mjs`
 
 **Purpose**: Extract all CSS files and create comprehensive color/font inventories
@@ -53,7 +74,7 @@
 - Save raw CSS files and generate JSON inventory
 - Handle multiple CSS files and @import statements
 
-### **3. Computed Styles Analyzer**
+### **4. Computed Styles Analyzer**
 **File**: `tools/audit-computed.mjs`
 
 **Purpose**: Get actual computed styles applied to elements (not just raw CSS)
@@ -65,7 +86,7 @@
 - Filter out unused/theoretical styles
 - Generate clean JSON with applied styling only
 
-### **4. Element-Specific Analyzer**
+### **5. Element-Specific Analyzer**
 **File**: `tools/analyze-specific-elements.mjs`
 
 **Purpose**: Deep analysis of specific components and elements
@@ -87,10 +108,12 @@ Add these scripts to your package.json:
 {
   "scripts": {
     "styles:responsive": "node tools/analyze-responsive.mjs",
+    "analyze:comprehensive": "node tools/comprehensive-site-analyzer.js",
     "styles:raw": "node tools/scrape-styles.mjs",
     "styles:computed": "node tools/audit-computed.mjs", 
     "styles:analyze": "node tools/analyze-specific-elements.mjs",
-    "styles:complete": "npm run styles:responsive && npm run styles:computed && npm run styles:analyze"
+    "styles:complete": "npm run styles:responsive && npm run analyze:comprehensive && npm run styles:computed",
+    "dev:stable": "npx eleventy --serve --port=8080"
   }
 }
 ```

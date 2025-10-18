@@ -103,6 +103,7 @@ rm -rf temp-practices
 
 ### **CSS Extraction Tools**
 - **[analyze-responsive.mjs](./tools/analyze-responsive.mjs)** - Multi-breakpoint responsive analysis (MANDATORY FIRST STEP)
+- **[comprehensive-site-analyzer.js](./tools/comprehensive-site-analyzer.js)** - Advanced element detection, positioning, and styling analysis (MANDATORY SECOND STEP)
 - **[scrape-styles.mjs](./tools/scrape-styles.mjs)** - Extract raw CSS files and create color/font inventories
 - **[audit-computed.mjs](./tools/audit-computed.mjs)** - Analyze actual computed styles applied to elements
 - **[analyze-specific-elements.mjs](./tools/analyze-specific-elements.mjs)** - Deep analysis of specific components
