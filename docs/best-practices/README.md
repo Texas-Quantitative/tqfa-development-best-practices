@@ -2,8 +2,8 @@
 
 *A modular guide for building production-ready FastAPI applications with proper deployment practices*
 
-**Last Modified**: September 27, 2025  
-**Version**: 2.0
+**Last Modified**: October 18, 2025  
+**Version**: 2.1
 
 **🔗 GitHub Repository**: `https://github.com/Texas-Quantitative/tqfaAPI`  
 **📂 Direct Link to This Documentation**: `https://github.com/Texas-Quantitative/tqfaAPI/tree/main/docs/best-practices`
@@ -92,8 +92,11 @@ This guide is split into focused documents for easy reference and reuse:
 - **[FastAPI Architecture](./fastapi-architecture.md)** - Project structure, API design, best practices
 - **[Code Standards](./code-standards.md)** - Python style, type hints, testing approaches
 - **[Security Practices](./security.md)** - Authentication, secrets management, secure coding
+
+### 🌐 **Web Analysis & Site Recreation** ⭐ **NEW**
 - **[CSS Extraction Toolkit](./css-extraction-toolkit.md)** - Automated CSS extraction for pixel-perfect website recreation
 - **[Responsive Analysis Methodology](./responsive-analysis-methodology.md)** - Multi-breakpoint responsive analysis (CRITICAL discovery)
+- **[Web Analysis Caching](./web-analysis-caching.md)** - ⚡ **MANDATORY**: Smart caching for web analysis tools (30-60x performance boost)
 
 ### ☁️ **Azure & Infrastructure**
 - **[Azure Resources Guide](./azure-resources.md)** - Resource management, Key Vault, storage

@@ -40,18 +40,29 @@ This is a FastAPI Python web API project with a modular structure. The project f
 
 **🚨 CRITICAL: Never guess CSS values - extract exact specifications**
 
-This project has access to **production-ready CSS extraction tools** for pixel-perfect website recreation:
+This project has access to **production-ready CSS extraction tools** with **mandatory smart caching** for pixel-perfect website recreation:
+
+### **⚡ PERFORMANCE: Smart Caching (MANDATORY)**
+**ALL web analysis tools include automatic caching for 30-60x speed improvement:**
+- ✅ **Instant results** from cache vs 30-60 seconds fresh fetch
+- ✅ **Offline development** with cached data when network unavailable  
+- ✅ **Bot detection avoidance** with minimal web requests
+- ✅ **Force refresh** option: Add `--force` to any command for fresh data
+- ✅ **Cache management**: Add `--clear-cache` to clear existing cache
 
 ### **Available Tools & Commands**
 ```bash
 # 1. MANDATORY FIRST - Analyze responsive behavior across breakpoints
 npm run styles:responsive -- https://target-site.com
+npm run styles:responsive -- https://target-site.com --force    # Force fresh data
 
 # 2. MANDATORY SECOND - Comprehensive element detection and positioning analysis
 npm run analyze:comprehensive -- https://target-site.com
+npm run analyze:comprehensive -- https://target-site.com --force # Force fresh data
 
 # 3. Get computed styles actually applied to elements (uses Puppeteer)
 npm run styles:computed -- https://target-site.com
+npm run styles:computed -- https://target-site.com --clear-cache # Clear cache first
 
 # 4. Analyze specific elements and components  
 npm run styles:analyze -- https://target-site.com ".navbar"
@@ -61,6 +72,7 @@ npm run styles:raw -- https://target-site.com
 
 # 6. Run complete analysis suite (responsive + comprehensive + computed)
 npm run styles:complete -- https://target-site.com
+npm run styles:complete -- https://target-site.com --force      # Force fresh data
 ```
 
 ### **When to Offer CSS Extraction**
@@ -95,6 +107,7 @@ npm run styles:complete -- https://target-site.com
 
 ### **Reference Documentation**
 - **[CSS Extraction Guide](https://raw.githubusercontent.com/Texas-Quantitative/tqfa-development-best-practices/master/docs/best-practices/css-extraction-toolkit.md)** - Complete implementation guide
+- **[Web Analysis Caching](https://raw.githubusercontent.com/Texas-Quantitative/tqfa-development-best-practices/master/docs/best-practices/web-analysis-caching.md)** - ⚡ **MANDATORY**: Performance optimization (30-60x faster)
 - **Tool Files**: Available at `tools/scrape-styles.mjs`, `tools/audit-computed.mjs`, `tools/analyze-specific-elements.mjs`
 
 **Remember**: Always extract exact specifications rather than approximating. This prevents hours of revision cycles and ensures professional results.
