@@ -91,12 +91,14 @@ npm run styles:complete -- https://target-site.com --force      # Force fresh da
 5. **Review insights**: Check responsive patterns, element positioning, typography hierarchy
 6. **Run static extraction**: Execute CSS extraction with full context
 7. **Analyze results**: Review generated JSON inventories, reports, and screenshots
-8. **Apply systematically**: Use responsive patterns + positioning data + extracted styling
+8. **🚨 CRITICAL**: **Preserve original class names** when recreating - NEVER use generic classes
+9. **Apply systematically**: Use responsive patterns + positioning data + extracted styling + original class hierarchy
 
 ### **Development Workflow Standards**
 - **Single-port discipline**: Use port 8080 only (`npm run dev:stable`)
 - **Process management**: Clean termination with `taskkill /f /im node.exe` when needed
 - **Measure don't guess**: Use precise measurements from analysis tools
+- **🚨 Class name preservation**: ALWAYS maintain original class names for viewport adjustments
 - **Visual verification**: Side-by-side comparison with original site
 
 ### **Key Benefits to Mention**

@@ -425,6 +425,77 @@ function generateComprehensiveReport(data) {
         });
     }
     
+    // Add class name preservation guidance
+    report += `\n## 🏗️ CRITICAL: Class Name Preservation for Recreation\n\n`;
+    report += `**MANDATORY**: When recreating this site, preserve ALL original class names to prevent:\n`;
+    report += `- ❌ Viewport adjustment confusion (can't identify elements for responsive changes)\n`;
+    report += `- ❌ Maintenance nightmares (impossible to correlate CSS rules with elements)\n`;
+    report += `- ❌ Team collaboration issues (other developers can't understand element context)\n\n`;
+    
+    report += `**Recreation Rules**:\n`;
+    report += `1. Keep original class hierarchy: <div class="container-fluid px-4"> NOT <div class="main-container">\n`;
+    report += `2. Preserve framework classes: navbar, nav-item, btn, etc.\n`;
+    report += `3. Maintain utility classes: px-4, ms-auto, fw-bold, etc.\n`;
+    report += `4. Use original classes for viewport adjustments: @media (max-width: 991px) { .navbar-expand-lg { ... } }\n\n`;
+    
+    report += `**Key Classes Found in This Site**:\n`;
+    const classRegistry = new Set();
+    
+    // Collect unique classes from all analyzed elements
+    if (data.sections) {
+        data.sections.forEach(section => {
+            if (section.content && section.content.className) {
+                section.content.className.split(' ').forEach(cls => {
+                    if (cls.trim()) classRegistry.add(cls.trim());
+                });
+            }
+        });
+    }
+    
+    if (data.grids) {
+        data.grids.forEach(grid => {
+            if (grid.className) {
+                grid.className.split(' ').forEach(cls => {
+                    if (cls.trim()) classRegistry.add(cls.trim());
+                });
+            }
+        });
+    }
+    
+    if (data.buttons) {
+        data.buttons.forEach(button => {
+            if (button.className) {
+                button.className.split(' ').forEach(cls => {
+                    if (cls.trim()) classRegistry.add(cls.trim());
+                });
+            }
+        });
+    }
+    
+    const sortedClasses = Array.from(classRegistry).sort();
+    if (sortedClasses.length > 0) {
+        report += `- Framework classes: ${sortedClasses.filter(cls => 
+            cls.includes('navbar') || cls.includes('btn') || cls.includes('container') || 
+            cls.includes('nav-') || cls.includes('col-') || cls.includes('row')
+        ).join(', ')}\n`;
+        
+        report += `- Utility classes: ${sortedClasses.filter(cls => 
+            cls.match(/^(p|m|w|h|d|text|bg|border|rounded|shadow)-/) ||
+            cls.match(/^(px|py|mx|my|ms|me|fs|fw|lh)-/) ||
+            cls.includes('auto') || cls.includes('center')
+        ).join(', ')}\n`;
+        
+        report += `- Custom classes: ${sortedClasses.filter(cls => 
+            !cls.includes('navbar') && !cls.includes('btn') && !cls.includes('container') && 
+            !cls.includes('nav-') && !cls.includes('col-') && !cls.includes('row') &&
+            !cls.match(/^(p|m|w|h|d|text|bg|border|rounded|shadow)-/) &&
+            !cls.match(/^(px|py|mx|my|ms|me|fs|fw|lh)-/) &&
+            !cls.includes('auto') && !cls.includes('center')
+        ).slice(0, 10).join(', ')}\n`;
+    }
+    
+    report += `\n**REMEMBER**: These class names are your blueprint for viewport adjustments and ongoing maintenance!\n\n`;
+    
     return report;
 }
 
@@ -434,6 +505,7 @@ const url = process.argv[2];
 if (!url) {
     console.error('❌ Usage: node comprehensive-site-analyzer.js <url>');
     console.error('   Example: node comprehensive-site-analyzer.js https://example.com');
+    console.error('   🚨 CRITICAL: This tool captures class names for recreation - preserve them!');
     process.exit(1);
 }
 

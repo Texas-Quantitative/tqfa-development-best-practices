@@ -221,15 +221,25 @@ project/
 
 ## 🎯 **Usage Patterns**
 
-### **Standard Website Recreation**
+### **Standard Website Recreation with Class Name Preservation**
 ```bash
-# 1. Extract all styling data
+# 1. MANDATORY FIRST - Extract responsive behavior
+npm run styles:responsive -- https://example.com
+
+# 2. MANDATORY SECOND - Comprehensive element analysis (includes class names)
+npm run analyze:comprehensive -- https://example.com
+
+# 3. Extract all styling data
 npm run styles:all -- https://example.com
 
-# 2. Review orig/_style-inventory.json for color palette
-# 3. Check orig/_computed-style-inventory.json for actual usage
-# 4. Use orig/_element-analysis.json for specific components
-# 5. Apply exact specifications to your recreation
+# 4. Review analysis files:
+#    - orig/_responsive-analysis.json: Breakpoint behavior
+#    - orig/_comprehensive-analysis.json: Class names and element structure
+#    - orig/_style-inventory.json: Color palette and fonts
+#    - orig/_computed-style-inventory.json: Actual applied styles
+
+# 5. CRITICAL: Preserve original class names in recreation
+# 6. Apply exact specifications using original class hierarchy
 ```
 
 ### **Component-Specific Recreation**
@@ -323,6 +333,146 @@ if (!url) {
 }
 
 analyzeSpecificElements(url, selector);
+```
+
+---
+
+## 🏗️ **CRITICAL: Class Name Preservation for Site Recreation**
+
+### **The Class Name Consistency Problem**
+When recreating websites, **maintaining original class names is MANDATORY** to prevent:
+- ❌ **Viewport adjustment confusion**: Can't identify elements for responsive changes
+- ❌ **Maintenance nightmares**: Impossible to correlate CSS rules with elements
+- ❌ **Team collaboration issues**: Other developers can't understand element context
+- ❌ **Debugging complexity**: No connection between original site and recreation
+
+### **Class Name Extraction Enhancement**
+```javascript
+// Enhanced element analysis to capture class names
+async function extractElementWithClasses(page, selector) {
+    return await page.evaluate((sel) => {
+        const element = document.querySelector(sel);
+        if (!element) return null;
+        
+        return {
+            // CRITICAL: Capture original class information
+            className: element.className,
+            classList: Array.from(element.classList),
+            id: element.id,
+            tagName: element.tagName.toLowerCase(),
+            
+            // Element hierarchy for context
+            parentClasses: element.parentElement?.className,
+            parentId: element.parentElement?.id,
+            childElements: Array.from(element.children).map(child => ({
+                tagName: child.tagName.toLowerCase(),
+                className: child.className,
+                id: child.id
+            })),
+            
+            // Styling and positioning
+            boundingRect: element.getBoundingClientRect(),
+            computedStyles: window.getComputedStyle(element),
+            textContent: element.textContent?.trim()
+        };
+    }, selector);
+}
+```
+
+### **Recreation Implementation Rules**
+
+#### **✅ CORRECT: Preserve Original Classes**
+```html
+<!-- Original site structure -->
+<nav class="main-navigation navbar navbar-expand-lg bg-white shadow-sm">
+    <div class="container-fluid px-4">
+        <a class="navbar-brand fw-bold text-primary" href="/">Logo</a>
+        <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+                <a class="nav-link active" href="#home">Home</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<!-- Recreation: Keep identical class structure -->
+<nav class="main-navigation navbar navbar-expand-lg bg-white shadow-sm">
+    <div class="container-fluid px-4">
+        <a class="navbar-brand fw-bold text-primary" href="/">Logo</a>
+        <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+                <a class="nav-link active" href="#home">Home</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+```
+
+#### **❌ WRONG: Generic Class Names**
+```html
+<!-- Recreation with generic classes -->
+<nav class="header-nav main-nav responsive-nav">
+    <div class="nav-container">
+        <a class="logo-link brand-text" href="/">Logo</a>
+        <ul class="nav-list right-aligned">
+            <li class="nav-item">
+                <a class="menu-link current" href="#home">Home</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+```
+
+### **Viewport Adjustment Strategy**
+```css
+/* ✅ CORRECT: Use original classes for responsive adjustments */
+@media (max-width: 991px) {
+    .main-navigation.navbar-expand-lg {
+        flex-direction: column;
+    }
+    
+    .container-fluid.px-4 {
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+    
+    .navbar-nav.ms-auto {
+        margin-top: 1rem;
+        width: 100%;
+    }
+}
+
+/* ❌ WRONG: Generic classes require guesswork */
+@media (max-width: 991px) {
+    .header-nav.responsive-nav {  /* Which elements exactly? */
+        flex-direction: column;   /* Why this breakpoint? */
+    }
+}
+```
+
+### **Class Name Documentation Template**
+```javascript
+// Include in analysis output
+const classNameRegistry = {
+    'main-navigation': {
+        purpose: 'Primary site navigation container',
+        frameworks: ['Bootstrap navbar'],
+        responsiveBreakpoints: [991, 768],
+        criticalForViewport: true
+    },
+    'navbar-expand-lg': {
+        purpose: 'Bootstrap responsive navigation trigger',
+        frameworks: ['Bootstrap 5.x'],
+        responsiveBreakpoints: [991],
+        criticalForViewport: true
+    },
+    'container-fluid': {
+        purpose: 'Bootstrap full-width container',
+        frameworks: ['Bootstrap grid'],
+        responsiveBreakpoints: 'all',
+        criticalForViewport: true
+    }
+};
 ```
 
 ---

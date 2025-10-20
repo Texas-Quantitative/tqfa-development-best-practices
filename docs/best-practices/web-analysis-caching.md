@@ -389,7 +389,154 @@ async function cachedResponsiveAnalysis(url) {
 
 ---
 
-## 🎖️ **Reference Implementation**
+## �️ **CRITICAL: Class Name Preservation for Site Recreation**
+
+### **The Class Name Consistency Problem**
+When recreating websites based on analysis data, **maintaining original class names is MANDATORY** to prevent:
+- ❌ **Viewport adjustment confusion**: Can't identify which elements to modify for responsive behavior
+- ❌ **Maintenance nightmares**: Debugging becomes impossible without original class context
+- ❌ **Style correlation issues**: CSS rules become disconnected from their intended elements
+- ❌ **Team collaboration problems**: Other developers can't understand element relationships
+
+### **Class Name Extraction Requirements**
+
+#### **MANDATORY: Extract and Preserve Original Class Names**
+```javascript
+// Enhanced element analysis to capture class names
+async function extractElementWithClasses(page, selector) {
+    return await page.evaluate((sel) => {
+        const element = document.querySelector(sel);
+        if (!element) return null;
+        
+        return {
+            // CRITICAL: Preserve original class names
+            className: element.className,
+            classList: Array.from(element.classList),
+            id: element.id,
+            tagName: element.tagName.toLowerCase(),
+            
+            // Positioning and styling data
+            boundingRect: element.getBoundingClientRect(),
+            computedStyles: window.getComputedStyle(element),
+            
+            // Content and structure
+            textContent: element.textContent?.trim(),
+            innerHTML: element.innerHTML,
+            
+            // CRITICAL: Parent context for nesting
+            parentClasses: element.parentElement?.className,
+            parentId: element.parentElement?.id
+        };
+    }, selector);
+}
+```
+
+#### **Recreation Pattern: Maintain Class Hierarchy**
+```html
+<!-- ✅ CORRECT: Preserve original class names -->
+<header class="site-header navbar navbar-expand-lg">
+    <div class="container-fluid">
+        <nav class="navbar-nav main-nav">
+            <a class="nav-link active" href="#home">Home</a>
+        </nav>
+    </div>
+</header>
+
+<!-- ❌ WRONG: Generic class names lose context -->
+<header class="header main-header">
+    <div class="container">
+        <nav class="navigation">
+            <a class="link active-link" href="#home">Home</a>
+        </nav>
+    </div>
+</header>
+```
+
+### **Implementation Guidelines**
+
+#### **1. Class Name Documentation**
+```javascript
+// Document class name mapping in analysis output
+const classNameMapping = {
+    extracted: {
+        'site-header': 'Main site header with navigation',
+        'navbar-expand-lg': 'Bootstrap responsive navigation',
+        'container-fluid': 'Full-width container for header content'
+    },
+    recreation: {
+        'site-header': 'Keep identical - used for viewport adjustments',
+        'navbar-expand-lg': 'Critical for mobile responsiveness',
+        'container-fluid': 'Maintains original layout behavior'
+    }
+};
+```
+
+#### **2. Viewport Adjustment Strategy**
+```css
+/* ✅ CORRECT: Use original class names for responsive adjustments */
+@media (max-width: 768px) {
+    .site-header .navbar-expand-lg {
+        flex-direction: column;
+    }
+    
+    .container-fluid {
+        padding: 0 15px;
+    }
+}
+
+/* ❌ WRONG: Generic classes require guesswork */
+@media (max-width: 768px) {
+    .header .main-nav {  /* Which header? Which nav? */
+        flex-direction: column;
+    }
+}
+```
+
+#### **3. Analysis Tool Enhancement**
+```javascript
+// Enhanced comprehensive analysis with class preservation
+async function analyzeWithClassPreservation(url) {
+    const analysis = await cachedAnalysis(url);
+    
+    // MANDATORY: Include class name mapping
+    analysis.classNameRegistry = {};
+    analysis.elements.forEach(element => {
+        if (element.classList && element.classList.length > 0) {
+            analysis.classNameRegistry[element.selector] = {
+                classes: element.classList,
+                purpose: inferClassPurpose(element.classList),
+                responsiveRelevant: isResponsiveRelevant(element.classList)
+            };
+        }
+    });
+    
+    return analysis;
+}
+```
+
+### **Quality Assurance Checklist**
+
+#### **Before Recreation:**
+- [ ] All major elements have their original class names documented
+- [ ] Class name hierarchy matches original site structure
+- [ ] Responsive-relevant classes are identified and preserved
+- [ ] Parent-child class relationships are maintained
+
+#### **During Recreation:**
+- [ ] Use original class names for all major structural elements
+- [ ] Maintain CSS framework class names (Bootstrap, Tailwind, etc.)
+- [ ] Preserve utility classes for spacing, colors, typography
+- [ ] Keep component-level class naming consistent
+
+#### **After Recreation:**
+- [ ] Viewport adjustments work using original class selectors
+- [ ] CSS modifications target correct elements without guesswork
+- [ ] Team members can identify elements using original class context
+- [ ] Maintenance tasks don't require re-analysis to understand structure
+
+---
+
+## �🎖️ **Reference Implementation**
 
 The complete working implementation is available in the `dental-static` project:
 - **File**: `cached-original-analysis.js`

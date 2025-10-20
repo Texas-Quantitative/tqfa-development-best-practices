@@ -2,8 +2,8 @@
 
 *A modular guide for building production-ready FastAPI applications with proper deployment practices*
 
-**Last Modified**: October 18, 2025  
-**Version**: 2.1
+**Last Modified**: October 20, 2025  
+**Version**: 2.1.1
 
 **🔗 GitHub Repository**: `https://github.com/Texas-Quantitative/tqfaAPI`  
 **📂 Direct Link to This Documentation**: `https://github.com/Texas-Quantitative/tqfaAPI/tree/main/docs/best-practices`
