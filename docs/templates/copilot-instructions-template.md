@@ -343,6 +343,114 @@ async def process_query_with_rag_and_history(  # ← Unnecessary new method
 - Demonstrates proactive problem-solving with available tools
 - Aligns with "no shortcuts from day one" philosophy
 
+## 🔄 **CONVERSATION CONTINUITY MANAGEMENT**
+
+**MANDATORY: Token Budget Monitoring at Commits**
+
+**After EVERY git commit, estimate token usage and warn if needed.**
+
+### **Estimation Heuristics (Rough Token Count)**
+
+After each commit, estimate based on:
+- **Conversation exchanges**: ~500-1000 tokens per user message + agent response
+- **Tool calls**: ~200-500 tokens per tool invocation
+- **File reads**: ~1 token per 4 characters read
+- **Large file operations**: Can add 10k-50k tokens quickly
+- **Verbose explanations**: Add ~500-2000 tokens per detailed response
+
+### **Warning Thresholds**
+
+Estimate tokens after commit. If indicators suggest HIGH usage:
+
+**🟡 YELLOW ALERT (Estimated 500k-700k tokens):**
+> "💭 **Token Budget Notice**: This has been an extensive session with [X] commits, [Y] tool calls, and multiple large file operations. We're likely around 500k-700k tokens. Consider requesting a handoff summary if you're planning significant additional work."
+
+**🟠 ORANGE ALERT (Estimated 700k-900k tokens):**
+> "⚠️ **Token Budget Warning**: We're deep into this session with substantial context built up (estimated 700k-900k tokens). **Recommend requesting a handoff summary soon** to avoid unexpected summarization during critical work."
+
+**🔴 RED ALERT (Estimated 900k+ tokens):**
+> "🚨 **TOKEN BUDGET CRITICAL**: This session is very extensive (estimated 900k+ tokens). **Strongly recommend creating a handoff summary NOW** before continuing. Auto-summarization could interrupt at any moment during complex operations."
+
+### **Calculation at Each Commit**
+
+After running `git commit`, perform quick estimation:
+
+```
+Estimated tokens = 
+  (conversation_exchanges × 750) +
+  (tool_calls × 350) + 
+  (total_chars_read ÷ 4) +
+  (verbose_responses × 1000)
+```
+
+If estimate > 500k tokens, provide appropriate warning above.
+
+### **User-Requested Handoff Summary Template**
+
+When user requests handoff (or you recommend it), provide:
+
+1. **Session Overview**
+   - What was accomplished
+   - Current state of all work streams
+   
+2. **Completed Work**
+   - List of commits with descriptions
+   - Files modified and why
+   - Systems deployed/updated
+
+3. **Pending Tasks**
+   - What's started but incomplete
+   - What's next in logical sequence
+   - Any blockers or decisions needed
+
+4. **Critical Context**
+   - Important decisions made
+   - Gotchas discovered
+   - Patterns established
+   - Infrastructure details (URLs, resource names, etc.)
+
+5. **Exact Resume Commands**
+   - Git branch to use
+   - Commands to verify state
+   - Next steps to execute
+
+6. **File States**
+   - What's committed vs uncommitted
+   - What's in staging
+   - What's been modified but not added
+
+### **Why This Protocol Matters**
+
+**The Auto-Summarization Problem:**
+- Happens without warning at ~1M tokens
+- Interrupts mid-task at worst possible times
+- Can take 5+ minutes during critical operations
+- May lose nuanced context in automated summary
+
+**The Commit-Based Estimation Solution:**
+- Proactive warnings at natural breakpoints
+- User maintains control over session transitions
+- Critical context preserved in deliberate handoff
+- Smooth continuation across agent sessions
+
+**Cost of Ignoring:**
+- Unexpected delays during deployment or complex operations
+- Lost context on critical details (like UAT environment naming)
+- Frustration from mid-task interruptions
+- Time wasted reconstructing context
+
+### **Example Commit-Time Warning**
+
+```
+✅ Successfully committed v2.2.0 release
+
+💭 Token Budget Notice: This session has had 6 commits, 
+45+ tool calls, and extensive file operations. Estimated token 
+usage: ~650k. If you're planning more significant work (like 
+testing the migration or additional features), consider requesting 
+a handoff summary to ensure smooth continuation.
+```
+
 ## Development Workflow
 - Use virtual environment (.venv)
 - Run with hot reload during development
