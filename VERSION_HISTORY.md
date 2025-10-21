@@ -1,7 +1,143 @@
 # Version History & Release Notes
 
-**Current Version**: 2.1.4  
+**Current Version**: 2.2.0  
 **Last Updated**: October 21, 2025
+
+---
+
+## 🗂️ **Version 2.2.0 - Web Analysis Toolkit Repository Split** (October 21, 2025)
+
+### **🎯 MAJOR ARCHITECTURAL CHANGE**
+Split CSS extraction and web analysis tools into **standalone repository** for broader applicability and independent development.
+
+### **🚨 REASON FOR SPLIT**
+The CSS extraction toolkit has evolved beyond TQFA-specific use:
+- ✅ **Universal applicability**: Useful for any web development project
+- ✅ **Active development**: Continuous feature additions (v2.1.1 → v2.1.4 rapid iteration)
+- ✅ **Complete product**: Comprehensive toolkit with 6 tools, caching, documentation
+- ✅ **Clear separation**: Web analysis vs deployment practices are distinct concerns
+- ✅ **Community value**: Standalone repo enables broader adoption and contributions
+
+### **📦 NEW REPOSITORY**
+**Web Analysis Toolkit**: https://github.com/Texas-Quantitative/web-analysis-toolkit
+
+**Initial Release**: v1.0.0 (October 21, 2025)
+
+**Tools Migrated**:
+- `extract-media-queries.mjs` → `src/extractors/media-queries.mjs`
+- `scrape-styles.mjs` → `src/extractors/static-css.mjs`
+- `audit-computed.mjs` → `src/extractors/computed-styles.mjs`
+- `analyze-responsive.mjs` → `src/analyzers/responsive.mjs`
+- `comprehensive-site-analyzer.js` → `src/analyzers/comprehensive.mjs`
+- `analyze-specific-elements.mjs` → `src/analyzers/elements.mjs`
+
+**Documentation Migrated**:
+- `css-extraction-toolkit.md` → `docs/guides/css-extraction.md`
+- `media-query-extraction.md` → `docs/guides/media-queries.md`
+- `responsive-analysis-methodology.md` → `docs/guides/responsive-analysis.md`
+- `web-analysis-caching.md` → `docs/guides/caching.md`
+- `text-element-analysis-enhancement.md` → `docs/guides/text-elements.md`
+- `intelligent-responsive-analysis.md` → `docs/roadmap/v2.2.0.md`
+- `declarative-site-extraction.md` → `docs/roadmap/v3.0.0.md`
+
+**New Documentation Created**:
+- Comprehensive README.md with badges and quick start
+- INSTALLATION.md with platform-specific setup
+- QUICK_START.md for 5-minute getting started
+- CONTRIBUTING.md with development guidelines
+- CHANGELOG.md tracking toolkit version history
+
+### **🔄 CHANGES IN THIS REPOSITORY**
+
+**Updated Files**:
+- **README.md**: Added Web Analysis Toolkit reference section
+- **copilot-instructions-template.md**: Updated to reference standalone toolkit
+- **web-recreation-workflow.md**: NEW integration guide for using toolkit with TQFA projects
+
+**Removed Files**:
+- `tools/` directory (moved to web-analysis-toolkit/src/)
+- CSS-specific documentation (moved to web-analysis-toolkit/docs/)
+
+**Retained Files**:
+- All deployment practices (docker-deployment.md, troubleshooting.md)
+- Automation scripts (bump_version.py, check_deployment.py, promote_healthy_revision.py)
+- Project organization best practices
+- Architectural best practices
+
+### **📚 CROSS-REFERENCES**
+
+**From Best Practices → Toolkit**:
+- README.md links to toolkit repository
+- copilot-instructions-template.md shows toolkit setup
+- web-recreation-workflow.md provides integration guide
+
+**From Toolkit → Best Practices**:
+- README.md links to deployment practices
+- Documentation references production deployment patterns
+
+### **🎯 USAGE CHANGES**
+
+**Before (v2.1.4)**:
+```bash
+# Tools were in this repository
+npm run styles:responsive -- https://example.com
+npm run analyze:comprehensive -- https://example.com
+```
+
+**After (v2.2.0)**:
+```bash
+# Clone toolkit separately
+git clone https://github.com/Texas-Quantitative/web-analysis-toolkit.git
+cd web-analysis-toolkit
+npm install
+
+# Use toolkit commands
+npm run analyze:responsive -- https://example.com
+npm run analyze:comprehensive -- https://example.com
+```
+
+### **💡 BENEFITS**
+
+**For CSS Toolkit Users**:
+- ✅ Dedicated repository with focused development
+- ✅ Clearer versioning (toolkit v1.x vs best-practices v2.x)
+- ✅ Easier to find, clone, and use
+- ✅ Community contributions welcome
+- ✅ Works with any project, not just TQFA
+
+**For Best Practices Users**:
+- ✅ Focused on deployment and architectural patterns
+- ✅ Smaller repository size
+- ✅ Clearer scope (FastAPI/Azure deployment)
+- ✅ Optional CSS toolkit integration
+- ✅ Maintained cross-references
+
+### **🔗 MIGRATION CONTEXT**
+
+**Toolkit Version History** (from origin):
+- v2.1.1 - Class name preservation for viewport adjustments
+- v2.1.2 - Project organization best practices
+- v2.1.3 - Text element analysis enhancement specification
+- v2.1.4 - Media query extraction tool
+
+**Toolkit Release**: v1.0.0 (standalone with all features from v2.1.1-v2.1.4)
+
+**Best Practices Version**: 2.2.0 (documents split, maintains deployment focus)
+
+### **📋 ACTION ITEMS FOR USERS**
+
+**If you were using CSS tools**:
+1. Clone web-analysis-toolkit repository
+2. Install dependencies: `npm install`
+3. Update any scripts/workflows to point to new location
+4. See web-recreation-workflow.md for integration guide
+
+**If you were using deployment practices**:
+1. No changes required - all deployment docs remain
+2. Optional: Clone web-analysis-toolkit if you need CSS extraction
+3. Update copilot instructions using new template (optional)
+
+**Status**: Repository split complete, both repos tagged and pushed to GitHub
 
 ---
 

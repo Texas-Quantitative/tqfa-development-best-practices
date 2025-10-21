@@ -92,8 +92,7 @@ rm -rf temp-practices
 - **[docker-deployment.md](./docs/best-practices/docker-deployment.md)** - Azure Container Apps deployment (fixes traffic routing issues)
 - **[scripts-and-tools.md](./docs/best-practices/scripts-and-tools.md)** - Production-ready automation scripts
 - **[troubleshooting.md](./docs/best-practices/troubleshooting.md)** - Common deployment failures and solutions
-- **[css-extraction-toolkit.md](./docs/best-practices/css-extraction-toolkit.md)** - Automated CSS extraction for pixel-perfect website recreation
-- **[responsive-analysis-methodology.md](./docs/best-practices/responsive-analysis-methodology.md)** - Multi-breakpoint responsive analysis (CRITICAL discovery)
+- **[project-organization.md](./docs/best-practices/project-organization.md)** - File organization and directory structure best practices
 - **[README.md](./docs/best-practices/README.md)** - Navigation guide for all practices
 
 ### **Templates**
@@ -101,12 +100,29 @@ rm -rf temp-practices
 - **Project structure examples** (coming soon)
 - **Dockerfile templates** (coming soon)
 
-### **CSS Extraction Tools**
-- **[analyze-responsive.mjs](./tools/analyze-responsive.mjs)** - Multi-breakpoint responsive analysis (MANDATORY FIRST STEP)
-- **[comprehensive-site-analyzer.js](./tools/comprehensive-site-analyzer.js)** - Advanced element detection, positioning, and styling analysis (MANDATORY SECOND STEP)
-- **[scrape-styles.mjs](./tools/scrape-styles.mjs)** - Extract raw CSS files and create color/font inventories
-- **[audit-computed.mjs](./tools/audit-computed.mjs)** - Analyze actual computed styles applied to elements
-- **[analyze-specific-elements.mjs](./tools/analyze-specific-elements.mjs)** - Deep analysis of specific components
+### **🎨 Web Analysis & CSS Extraction**
+
+**⚠️ MOVED TO STANDALONE REPOSITORY**: CSS extraction tools are now in their own dedicated toolkit for broader applicability.
+
+**[Web Analysis Toolkit](https://github.com/Texas-Quantitative/web-analysis-toolkit)** - Comprehensive CSS extraction, responsive analysis, and media query extraction for pixel-perfect website recreation
+
+**Features:**
+- 🔍 Extract actual CSS media query breakpoints
+- 📐 Analyze responsive behavior across 7 viewport sizes
+- 🎨 Complete color, font, and typography extraction
+- 💾 Smart 24-hour caching (30-60x performance boost)
+- 📊 Computed styles analysis with Puppeteer
+- 🎯 Component-specific deep analysis
+
+**Quick Start:**
+```bash
+git clone https://github.com/Texas-Quantitative/web-analysis-toolkit.git
+cd web-analysis-toolkit
+npm install
+npm run analyze:complete -- https://example.com
+```
+
+**See Also:** [web-recreation-workflow.md](./docs/best-practices/web-recreation-workflow.md) - Integration guide for using the toolkit with TQFA projects
 
 ### **Automation Scripts**
 - **[bump_version.py](./scripts/bump_version.py)** - Automated version management for deployments

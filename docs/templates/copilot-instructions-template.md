@@ -93,11 +93,24 @@ project-root/
 - **New projects** → Full README.md for complete setup guidance
 - **CSS/Website recreation** → css-extraction-toolkit.md for pixel-perfect styling
 
-## 🎨 **CSS EXTRACTION TOOLKIT - AVAILABLE CAPABILITY**
+## 🎨 **WEB ANALYSIS TOOLKIT - STANDALONE TOOL**
 
 **🚨 CRITICAL: Never guess CSS values - extract exact specifications**
 
-This project has access to **production-ready CSS extraction tools** with **mandatory smart caching** for pixel-perfect website recreation:
+This project can use the **Web Analysis Toolkit** for pixel-perfect website recreation and CSS extraction:
+
+**🌐 Toolkit Repository**: `https://github.com/Texas-Quantitative/web-analysis-toolkit`
+
+### **Installation**
+
+The toolkit is now a standalone repository. Clone it to use with your project:
+
+```bash
+# Clone toolkit (one-time setup)
+git clone https://github.com/Texas-Quantitative/web-analysis-toolkit.git
+cd web-analysis-toolkit
+npm install
+```
 
 ### **⚡ PERFORMANCE: Smart Caching (MANDATORY)**
 **ALL web analysis tools include automatic caching for 30-60x speed improvement:**
@@ -108,33 +121,36 @@ This project has access to **production-ready CSS extraction tools** with **mand
 - ✅ **Cache management**: Add `--clear-cache` to clear existing cache
 
 ### **Available Tools & Commands**
+
 ```bash
+# Run from web-analysis-toolkit directory
+
 # 1. MANDATORY FIRST - Analyze responsive behavior across breakpoints
-npm run styles:responsive -- https://target-site.com
-npm run styles:responsive -- https://target-site.com --force    # Force fresh data
+npm run analyze:responsive -- https://target-site.com
+npm run analyze:responsive -- https://target-site.com --force    # Force fresh data
 
 # 2. MANDATORY SECOND - Comprehensive element detection and positioning analysis
 npm run analyze:comprehensive -- https://target-site.com
 npm run analyze:comprehensive -- https://target-site.com --force # Force fresh data
 
 # 3. NEW: Extract actual CSS media query breakpoints (finds exact responsive trigger points)
-npm run analyze:media-queries -- https://target-site.com
-npm run analyze:media-queries -- https://target-site.com --property margin-left  # Filter by CSS property
-npm run analyze:media-queries -- https://target-site.com --selector .hero-section  # Filter by selector
+npm run extract:media-queries -- https://target-site.com
+npm run extract:media-queries -- https://target-site.com --property margin-left  # Filter by CSS property
+npm run extract:media-queries -- https://target-site.com --selector .hero-section  # Filter by selector
 
 # 4. Get computed styles actually applied to elements (uses Puppeteer)
-npm run styles:computed -- https://target-site.com
-npm run styles:computed -- https://target-site.com --clear-cache # Clear cache first
+npm run extract:computed -- https://target-site.com
+npm run extract:computed -- https://target-site.com --clear-cache # Clear cache first
 
 # 5. Analyze specific elements and components  
-npm run styles:analyze -- https://target-site.com ".navbar"
+npm run analyze:elements -- https://target-site.com ".navbar"
 
 # 6. Extract all CSS files and create color/font inventories
-npm run styles:raw -- https://target-site.com
+npm run extract:static-css -- https://target-site.com
 
 # 7. Run complete analysis suite (responsive + comprehensive + media queries + computed)
-npm run styles:complete -- https://target-site.com
-npm run styles:complete -- https://target-site.com --force      # Force fresh data
+npm run analyze:complete -- https://target-site.com
+npm run analyze:complete -- https://target-site.com --force      # Force fresh data
 ```
 
 ### **When to Offer CSS Extraction**
@@ -146,8 +162,8 @@ npm run styles:complete -- https://target-site.com --force      # Force fresh da
 - Any website recreation or styling analysis task
 
 ### **CSS Extraction Workflow**
-1. **Offer the capability**: "I can extract exact CSS specifications and responsive behavior from that website"
-2. **Set up tools**: Install dependencies and download extraction scripts
+1. **Offer the capability**: "I can extract exact CSS specifications and responsive behavior from that website using the Web Analysis Toolkit"
+2. **Set up tools**: Clone toolkit repository and install dependencies
 3. **MANDATORY FIRST**: Run responsive analysis across multiple breakpoints
 4. **MANDATORY SECOND**: Run comprehensive element detection and positioning analysis
 5. **NEW: Extract media queries**: Find exact breakpoints where CSS properties change (e.g., when margin-left switches from 325px to auto)
@@ -158,7 +174,7 @@ npm run styles:complete -- https://target-site.com --force      # Force fresh da
 10. **Apply systematically**: Use responsive patterns + actual breakpoints + positioning data + extracted styling + original class hierarchy
 
 ### **Development Workflow Standards**
-- **Single-port discipline**: Use port 8080 only (`npm run dev:stable`)
+- **Single-port discipline**: Use port 8080 only for dev servers
 - **Process management**: Clean termination with `taskkill /f /im node.exe` when needed
 - **Measure don't guess**: Use precise measurements from analysis tools
 - **🚨 Class name preservation**: ALWAYS maintain original class names for viewport adjustments
@@ -169,12 +185,16 @@ npm run styles:complete -- https://target-site.com --force      # Force fresh da
 - ✅ **Pixel-perfect accuracy** - exact hex colors, font weights, dimensions
 - ✅ **Complete automation** - extracts all styling data systematically
 - ✅ **No guesswork** - eliminates visual approximation errors
+- ✅ **Standalone toolkit** - works with any project, not just TQFA
 
 ### **Reference Documentation**
-- **[CSS Extraction Guide](https://raw.githubusercontent.com/Texas-Quantitative/tqfa-development-best-practices/master/docs/best-practices/css-extraction-toolkit.md)** - Complete implementation guide
-- **[Web Analysis Caching](https://raw.githubusercontent.com/Texas-Quantitative/tqfa-development-best-practices/master/docs/best-practices/web-analysis-caching.md)** - ⚡ **MANDATORY**: Performance optimization (30-60x faster)
-- **[Media Query Extraction](https://raw.githubusercontent.com/Texas-Quantitative/tqfa-development-best-practices/master/docs/best-practices/media-query-extraction.md)** - 🎯 **NEW**: Extract actual CSS breakpoints from stylesheets
-- **Tool Files**: Available at `tools/scrape-styles.mjs`, `tools/audit-computed.mjs`, `tools/analyze-specific-elements.mjs`, `tools/extract-media-queries.mjs`
+- **[Toolkit Main Repository](https://github.com/Texas-Quantitative/web-analysis-toolkit)** - Main overview and quick start
+- **[Installation Guide](https://github.com/Texas-Quantitative/web-analysis-toolkit/blob/main/INSTALLATION.md)** - Detailed setup instructions
+- **[Quick Start Guide](https://github.com/Texas-Quantitative/web-analysis-toolkit/blob/main/QUICK_START.md)** - Get running in 5 minutes
+- **[CSS Extraction Guide](https://github.com/Texas-Quantitative/web-analysis-toolkit/blob/main/docs/guides/css-extraction.md)** - Complete implementation guide
+- **[Media Query Extraction](https://github.com/Texas-Quantitative/web-analysis-toolkit/blob/main/docs/guides/media-queries.md)** - Extract actual CSS breakpoints
+- **[Web Analysis Caching](https://github.com/Texas-Quantitative/web-analysis-toolkit/blob/main/docs/guides/caching.md)** - Performance optimization (30-60x faster)
+- **[Responsive Analysis](https://github.com/Texas-Quantitative/web-analysis-toolkit/blob/main/docs/guides/responsive-analysis.md)** - Multi-breakpoint methodology
 
 **Remember**: Always extract exact specifications rather than approximating. This prevents hours of revision cycles and ensures professional results.
 
