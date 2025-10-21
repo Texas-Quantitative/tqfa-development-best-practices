@@ -271,6 +271,9 @@ The #1 lesson learned: Taking shortcuts early cost us **days** of debugging time
 - **[FastAPI Architecture](./docs/best-practices/fastapi-architecture.md)** - Project structure, API design
 - **[Code Standards](./docs/best-practices/code-standards.md)** - Python style, testing, type hints
 
+### 🔮 **Future Roadmap**
+- **[ROADMAP.md](./ROADMAP.md)** - 🚀 **Strategic Planning**: Version 2.2.0 (Express/Detailed Analysis) and 3.0.0 (Declarative Extraction) planned enhancements
+
 ---
 
 ## 🚀 **Quick Start Checklist**

@@ -97,6 +97,8 @@ This guide is split into focused documents for easy reference and reuse:
 - **[CSS Extraction Toolkit](./css-extraction-toolkit.md)** - Automated CSS extraction for pixel-perfect website recreation
 - **[Responsive Analysis Methodology](./responsive-analysis-methodology.md)** - Multi-breakpoint responsive analysis (CRITICAL discovery)
 - **[Web Analysis Caching](./web-analysis-caching.md)** - ⚡ **MANDATORY**: Smart caching for web analysis tools (30-60x performance boost)
+- **[Declarative Site Extraction](./declarative-site-extraction.md)** - 🚀 **v3.0 PLANNED**: Natural language multi-viewport extraction and comparison
+- **[Intelligent Responsive Analysis](./intelligent-responsive-analysis.md)** - 🔮 **PLANNED v2.2**: Express vs Detailed analysis modes with breakpoint discovery
 
 ### ☁️ **Azure & Infrastructure**
 - **[Azure Resources Guide](./azure-resources.md)** - Resource management, Key Vault, storage
