@@ -2,8 +2,8 @@
 
 *A modular guide for building production-ready FastAPI applications with proper deployment practices*
 
-**Last Modified**: October 20, 2025  
-**Version**: 2.1.1
+**Last Modified**: October 21, 2025  
+**Version**: 2.1.3
 
 **🔗 GitHub Repository**: `https://github.com/Texas-Quantitative/tqfaAPI`  
 **📂 Direct Link to This Documentation**: `https://github.com/Texas-Quantitative/tqfaAPI/tree/main/docs/best-practices`
@@ -92,13 +92,15 @@ This guide is split into focused documents for easy reference and reuse:
 - **[FastAPI Architecture](./fastapi-architecture.md)** - Project structure, API design, best practices
 - **[Code Standards](./code-standards.md)** - Python style, type hints, testing approaches
 - **[Security Practices](./security.md)** - Authentication, secrets management, secure coding
+- **[Project Organization](./project-organization.md)** - 🚨 **CRITICAL**: File organization, preventing root directory clutter (AI agent best practice)
 
 ### 🌐 **Web Analysis & Site Recreation** ⭐ **NEW**
 - **[CSS Extraction Toolkit](./css-extraction-toolkit.md)** - Automated CSS extraction for pixel-perfect website recreation
 - **[Responsive Analysis Methodology](./responsive-analysis-methodology.md)** - Multi-breakpoint responsive analysis (CRITICAL discovery)
 - **[Web Analysis Caching](./web-analysis-caching.md)** - ⚡ **MANDATORY**: Smart caching for web analysis tools (30-60x performance boost)
+- **[Text Element Analysis Enhancement](./text-element-analysis-enhancement.md)** - � **v2.1.3 SPEC**: Capture text-specific CSS (margins, font variants, width constraints)
+- **[Intelligent Responsive Analysis](./intelligent-responsive-analysis.md)** - 🔮 **v2.2 PLANNED**: Express vs Detailed analysis modes with breakpoint discovery
 - **[Declarative Site Extraction](./declarative-site-extraction.md)** - 🚀 **v3.0 PLANNED**: Natural language multi-viewport extraction and comparison
-- **[Intelligent Responsive Analysis](./intelligent-responsive-analysis.md)** - 🔮 **PLANNED v2.2**: Express vs Detailed analysis modes with breakpoint discovery
 
 ### ☁️ **Azure & Infrastructure**
 - **[Azure Resources Guide](./azure-resources.md)** - Resource management, Key Vault, storage

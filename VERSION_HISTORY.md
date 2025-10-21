@@ -1,7 +1,93 @@
 # Version History & Release Notes
 
-**Current Version**: 2.1.1  
-**Last Updated**: October 20, 2025
+**Current Version**: 2.1.3  
+**Last Updated**: October 21, 2025
+
+---
+
+## 🗂️ **Version 2.1.3 - Text Element Analysis Enhancement** (October 21, 2025)
+
+### **🎯 CRITICAL ENHANCEMENT SPECIFICATION**
+Created comprehensive specification for capturing **text-specific CSS properties** that current analysis tools miss.
+
+### **🚨 THE GAP DISCOVERED**
+Current CSS extraction tools capture container properties but miss critical text-specific CSS:
+- ❌ **Font family variants**: Captures "Montserrat" but misses "MontserratMedium", "MontserratRegular"
+- ❌ **Text element margins**: Captures container margins but not paragraph/heading margins  
+- ❌ **Width constraints on text**: Captures flex container widths but not text element max-width
+- ❌ **Typography details**: Missing line-height, letter-spacing on individual text elements
+
+### **📋 NEW DOCUMENTATION**
+- **text-element-analysis-enhancement.md**: Complete enhancement specification
+- Root cause analysis: getComputedStyle() called only on containers, not text elements
+- Enhanced analyzer with isTextElement detection
+- Typography-specific analyzer for text-focused analysis
+- Output structure change: textSpecific section alongside container styles
+
+### **🔧 IMPLEMENTATION PLAN**
+**Phase 1**: Enhance comprehensive-site-analyzer.js with text-specific capture  
+**Phase 2**: Create dedicated typography-analyzer.js tool  
+**Phase 3**: Update documentation and integration  
+**Phase 4**: Add to complete analysis workflow
+
+### **📊 EXPECTED IMPROVEMENTS**
+- ✅ Capture exact font variants (MontserratMedium vs generic Montserrat)
+- ✅ Measure text margins separately from container padding
+- ✅ Capture width constraints affecting text wrapping
+- ✅ Precise line-height and letter-spacing measurements
+
+**Status**: Enhancement specification complete, ready for implementation
+
+---
+
+## 🗂️ **Version 2.1.2 - Project Organization Best Practice** (October 21, 2025)
+
+### **🎯 CRITICAL ADDITION**
+Added **mandatory project organization protocols** to prevent root directory clutter caused by AI agents and developers.
+
+### **🚨 THE PROBLEM SOLVED**
+AI agents frequently create chaos in project root:
+- Test scripts scattered everywhere (`test1.py`, `test2.py`, `final_test.py`)
+- Screenshots dumped in root (`screenshot1.png`, `screenshot2.png`)
+- Analysis outputs mixed with source code
+- Temporary files committed to git
+- Onboarding confusion for new developers
+
+### **📋 NEW DOCUMENTATION**
+- **project-organization.md**: Complete file organization standards
+- Mandatory subdirectory structure for agent-generated files
+- Clear rules for test scripts, analysis outputs, temporary files
+- .gitignore template for proper file exclusion
+- Code review checklist for root directory clutter
+
+### **🔧 KEY REQUIREMENTS**
+**Agents MUST:**
+- Create `tests/agent_tests/` for test scripts
+- Create `analysis/screenshots/` for screenshots with date subdirs
+- Create `temp/` for temporary files (gitignored)
+- Never dump files in project root
+
+### **📂 STANDARD STRUCTURE**
+```
+project-root/
+├── src/                    # Source code
+├── tests/agent_tests/      # Agent test scripts
+├── analysis/
+│   ├── screenshots/        # Organized by date
+│   ├── reports/            # Generated reports
+│   └── data/               # Analysis outputs
+├── temp/                   # Temporary (gitignored)
+└── scripts/                # Utility scripts
+```
+
+### **🎯 IMPACT**
+- Prevents "root directory explosion" anti-pattern
+- Maintains professional project structure
+- Easy cleanup of temporary/analysis files
+- Clear separation of production vs development files
+- Better git hygiene and code reviews
+
+**Status**: MANDATORY for all projects using AI agents
 
 ---
 

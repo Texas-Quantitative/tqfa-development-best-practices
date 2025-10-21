@@ -5,7 +5,64 @@
 ## Project Overview
 This is a FastAPI Python web API project with a modular structure. The project follows modern Python development practices with type hints, Pydantic models, and clean architecture.
 
-## 🚨 CRITICAL: NO SHORTCUTS FROM DAY ONE
+## � **CRITICAL: FILE ORGANIZATION PROTOCOL**
+
+**🚨 MANDATORY**: Never create files in project root unless they are:
+- Configuration files (`package.json`, `requirements.txt`, `.gitignore`)
+- Documentation (`README.md`)
+- Entry points (`main.py`, `index.js`)
+
+**For all other files, create organized subdirectories:**
+
+### **Test Scripts → `tests/agent_tests/`**
+```bash
+# ❌ WRONG: Creating in project root
+touch test_feature.py
+
+# ✅ CORRECT: Organized location
+mkdir -p tests/agent_tests
+touch tests/agent_tests/test_feature.py
+```
+
+### **Analysis Outputs → `analysis/`**
+```bash
+# ❌ WRONG: Screenshots in root
+screenshot1.png
+
+# ✅ CORRECT: Organized with context
+mkdir -p analysis/screenshots/$(date +%Y%m%d)
+# Save: analysis/screenshots/20251021/original_site_desktop.png
+```
+
+### **Temporary Files → `temp/` (gitignored)**
+```bash
+# ❌ WRONG: temp_data.json in root
+
+# ✅ CORRECT: Dedicated temp directory
+mkdir -p temp/working
+echo "data" > temp/working/temp_data.json
+```
+
+### **Standard Directory Structure**
+```
+project-root/
+├── src/                      # Source code only
+├── tests/
+│   └── agent_tests/          # Your test scripts here
+├── analysis/
+│   ├── screenshots/          # Screenshots with date subdirs
+│   ├── reports/              # Generated reports
+│   └── data/                 # JSON/CSV analysis outputs
+├── temp/                     # Temporary files (gitignored)
+├── scripts/                  # Utility scripts
+└── logs/                     # Log files (gitignored)
+```
+
+**📖 Complete Guide**: [Project Organization Best Practices](https://raw.githubusercontent.com/Texas-Quantitative/tqfa-development-best-practices/master/docs/best-practices/project-organization.md)
+
+**Before creating ANY file, ask**: "Does this belong in project root, or should it have its own organized location?"
+
+## �🚨 CRITICAL: NO SHORTCUTS FROM DAY ONE
 **MANDATORY ENGINEERING STANDARDS - NO EXCEPTIONS**
 
 **The Deployment Disaster Lesson**: Taking shortcuts early ("just get it working") cost us DAYS of debugging deployment failures. Engineering shortcuts are technical debt with compound interest.
