@@ -117,17 +117,22 @@ npm run styles:responsive -- https://target-site.com --force    # Force fresh da
 npm run analyze:comprehensive -- https://target-site.com
 npm run analyze:comprehensive -- https://target-site.com --force # Force fresh data
 
-# 3. Get computed styles actually applied to elements (uses Puppeteer)
+# 3. NEW: Extract actual CSS media query breakpoints (finds exact responsive trigger points)
+npm run analyze:media-queries -- https://target-site.com
+npm run analyze:media-queries -- https://target-site.com --property margin-left  # Filter by CSS property
+npm run analyze:media-queries -- https://target-site.com --selector .hero-section  # Filter by selector
+
+# 4. Get computed styles actually applied to elements (uses Puppeteer)
 npm run styles:computed -- https://target-site.com
 npm run styles:computed -- https://target-site.com --clear-cache # Clear cache first
 
-# 4. Analyze specific elements and components  
+# 5. Analyze specific elements and components  
 npm run styles:analyze -- https://target-site.com ".navbar"
 
-# 5. Extract all CSS files and create color/font inventories
+# 6. Extract all CSS files and create color/font inventories
 npm run styles:raw -- https://target-site.com
 
-# 6. Run complete analysis suite (responsive + comprehensive + computed)
+# 7. Run complete analysis suite (responsive + comprehensive + media queries + computed)
 npm run styles:complete -- https://target-site.com
 npm run styles:complete -- https://target-site.com --force      # Force fresh data
 ```
@@ -145,11 +150,12 @@ npm run styles:complete -- https://target-site.com --force      # Force fresh da
 2. **Set up tools**: Install dependencies and download extraction scripts
 3. **MANDATORY FIRST**: Run responsive analysis across multiple breakpoints
 4. **MANDATORY SECOND**: Run comprehensive element detection and positioning analysis
-5. **Review insights**: Check responsive patterns, element positioning, typography hierarchy
-6. **Run static extraction**: Execute CSS extraction with full context
-7. **Analyze results**: Review generated JSON inventories, reports, and screenshots
-8. **🚨 CRITICAL**: **Preserve original class names** when recreating - NEVER use generic classes
-9. **Apply systematically**: Use responsive patterns + positioning data + extracted styling + original class hierarchy
+5. **NEW: Extract media queries**: Find exact breakpoints where CSS properties change (e.g., when margin-left switches from 325px to auto)
+6. **Review insights**: Check responsive patterns, element positioning, typography hierarchy, actual breakpoints
+7. **Run static extraction**: Execute CSS extraction with full context
+8. **Analyze results**: Review generated JSON inventories, reports, and screenshots
+9. **🚨 CRITICAL**: **Preserve original class names** when recreating - NEVER use generic classes
+10. **Apply systematically**: Use responsive patterns + actual breakpoints + positioning data + extracted styling + original class hierarchy
 
 ### **Development Workflow Standards**
 - **Single-port discipline**: Use port 8080 only (`npm run dev:stable`)
@@ -167,7 +173,8 @@ npm run styles:complete -- https://target-site.com --force      # Force fresh da
 ### **Reference Documentation**
 - **[CSS Extraction Guide](https://raw.githubusercontent.com/Texas-Quantitative/tqfa-development-best-practices/master/docs/best-practices/css-extraction-toolkit.md)** - Complete implementation guide
 - **[Web Analysis Caching](https://raw.githubusercontent.com/Texas-Quantitative/tqfa-development-best-practices/master/docs/best-practices/web-analysis-caching.md)** - ⚡ **MANDATORY**: Performance optimization (30-60x faster)
-- **Tool Files**: Available at `tools/scrape-styles.mjs`, `tools/audit-computed.mjs`, `tools/analyze-specific-elements.mjs`
+- **[Media Query Extraction](https://raw.githubusercontent.com/Texas-Quantitative/tqfa-development-best-practices/master/docs/best-practices/media-query-extraction.md)** - 🎯 **NEW**: Extract actual CSS breakpoints from stylesheets
+- **Tool Files**: Available at `tools/scrape-styles.mjs`, `tools/audit-computed.mjs`, `tools/analyze-specific-elements.mjs`, `tools/extract-media-queries.mjs`
 
 **Remember**: Always extract exact specifications rather than approximating. This prevents hours of revision cycles and ensures professional results.
 
