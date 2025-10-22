@@ -417,42 +417,66 @@ async def process_query_with_rag_and_history(  # ← Unnecessary new method
 
 ## 🔄 **CONVERSATION CONTINUITY MANAGEMENT**
 
-**MANDATORY: Token Budget Monitoring at Commits**
+**MANDATORY: Token Budget Monitoring at Natural Breakpoints**
 
-**After EVERY git commit, check actual token usage from system warnings and warn if needed.**
+**After significant milestones (commits, deployments, major completions), estimate token usage and warn if needed.**
 
-### **Real-Time Token Monitoring**
+### **Token Usage Estimation**
 
-**CRITICAL: Use Actual Token Data from System Warnings**
+**CRITICAL: System Warnings Are Misleading**
 
-After each tool call, look for the system warning message that appears automatically:
-```
-<system_warning>Token usage: 62350/1000000; 937650 remaining</system_warning>
-```
+System warnings show incremental token usage but DON'T include:
+- Large file attachments loaded in context
+- Workspace files and structure
+- Copilot instructions (this file itself)
+- Previous conversation history
+- **Result**: Agent may see "74k tokens used" while auto-summarization triggers anyway
 
-**Extract the actual usage number** (e.g., 62350 in the example above) and use that for accurate monitoring.
+**Use Conservative Estimation Instead:**
+
+**Base Estimation Formula:**
+- **Conversation turns**: ~500-2000 tokens per turn (varies by complexity)
+- **File reads**: ~1000-5000 tokens per large file
+- **Tool outputs**: ~500-3000 tokens per tool result
+- **Workspace context**: ~5000-20000 tokens (loaded automatically)
+- **Copilot instructions**: ~3000-8000 tokens (this template)
+
+**High-Risk Indicators (Estimate 300k+ tokens):**
+- 15+ conversation turns with multiple tool calls
+- 5+ large file reads (>500 lines each)
+- Multiple repository workspaces loaded
+- Long copilot instructions file
+- Complex debugging sessions
+
+**Critical Risk Indicators (Estimate 500k+ tokens):**
+- 25+ conversation turns
+- 10+ file reads
+- Multiple git operations with large diffs
+- Deployment troubleshooting with logs
+- Iterative debugging cycles
 
 ### **Warning Thresholds**
 
-Check actual token usage after commit. Use the EXACT numbers from system warnings:
+Use conservative estimates based on session indicators:
 
-**🟡 YELLOW ALERT (500k-700k tokens):**
-> "💭 **Token Budget Notice**: Current session usage is [ACTUAL_TOKENS] tokens. We're approaching significant context buildup. Consider requesting a handoff summary if you're planning major additional work."
+**🟡 YELLOW ALERT (After ~15 conversation turns OR 5+ file reads):**
+> "💭 **Token Budget Notice**: This session has significant context buildup (estimated ~300k+ tokens including workspace context). Consider requesting a handoff summary if you're planning major additional work."
 
-**🟠 ORANGE ALERT (700k-900k tokens):**
-> "⚠️ **Token Budget Warning**: Current session usage is [ACTUAL_TOKENS] tokens. **Recommend requesting a handoff summary soon** to avoid unexpected summarization during critical work."
+**🟠 ORANGE ALERT (After ~25 conversation turns OR 10+ file reads):**
+> "⚠️ **Token Budget Warning**: This session has substantial context (estimated ~500k+ tokens with all attachments). **Recommend requesting a handoff summary soon** to avoid unexpected auto-summarization during critical work."
 
-**🔴 RED ALERT (900k+ tokens):**
-> "🚨 **TOKEN BUDGET CRITICAL**: Current session usage is [ACTUAL_TOKENS] tokens. **Strongly recommend creating a handoff summary NOW** before continuing. Auto-summarization could interrupt at any moment during complex operations."
+**🔴 RED ALERT (After ~35+ conversation turns OR extensive debugging):**
+> "🚨 **TOKEN BUDGET CRITICAL**: This session likely approaching 700k+ tokens with all context. **Strongly recommend creating a handoff summary NOW** before continuing. Auto-summarization could interrupt at any moment during complex operations."
 
-### **Monitoring Protocol at Each Commit**
+### **Monitoring Protocol at Natural Breakpoints**
 
-After running `git commit`:
+After major milestones (git commit, deployment, feature completion):
 
-1. **Check Last System Warning**: Look at the most recent `<system_warning>` message
-2. **Extract Actual Usage**: Get the first number (e.g., 62350 from "62350/1000000")  
-3. **Apply Threshold**: Use actual number against 500k/700k/900k thresholds
-4. **Warn Appropriately**: Provide specific warning with actual token count
+1. **Count conversation turns**: How many back-and-forth exchanges?
+2. **Count file operations**: How many files read, edited, or analyzed?
+3. **Assess complexity**: Simple edits or complex debugging?
+4. **Apply conservative threshold**: When in doubt, recommend handoff
+5. **Warn appropriately**: Use turn count and operation count as indicators
 
 ### **User-Requested Handoff Summary Template**
 
