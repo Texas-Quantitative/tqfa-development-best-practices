@@ -196,6 +196,78 @@ npm run analyze:complete -- https://target-site.com --force      # Force fresh d
 - **[Web Analysis Caching](https://github.com/Texas-Quantitative/web-analysis-toolkit/blob/main/docs/guides/caching.md)** - Performance optimization (30-60x faster)
 - **[Responsive Analysis](https://github.com/Texas-Quantitative/web-analysis-toolkit/blob/main/docs/guides/responsive-analysis.md)** - Multi-breakpoint methodology
 
+### **🔬 Toolkit Enhancement Feedback Protocol**
+
+**CRITICAL: Document Toolkit Limitations and Missing Capabilities**
+
+When working with the Web Analysis Toolkit, **capture and report gaps** to improve future versions:
+
+**What to Document:**
+1. **Missing Tools**: Features you needed but had to create manually
+   - Example: "Needed mobile menu/modal analyzer - manually inspected hamburger behavior at 767px"
+   
+2. **Manual Workarounds**: Tasks that required custom scripts or manual inspection
+   - Example: "Created custom positioning calculator to find exact pixel positions and negative margins"
+   
+3. **Iterative Pain Points**: Repetitive tasks that consumed significant time
+   - Example: "20+ spacing iterations for section height, image margins - no tool to assist"
+   
+4. **Unexpected Discoveries**: Things current tools missed
+   - Example: "Font-family uses actual file names (MontserratBold) not CSS font-weight declarations"
+
+**How to Report:**
+
+When you complete a website recreation project, create an enhancement recommendation:
+
+```markdown
+## Web Analysis Toolkit Enhancement Recommendations
+### From: [Project Name] - [Date]
+
+### 1. [Tool Name] - [Priority: HIGH/MEDIUM/LOW]
+**Purpose**: [What it should do]
+
+**Gap Identified**: [What current tools don't handle]
+
+**Use Case**: [Specific example from this project]
+
+**Implementation Hints**: 
+- [Key technical details]
+- [Selector patterns discovered]
+- [Output format needed]
+
+**Example Output**: [What the tool should produce]
+```
+
+**When to Create Recommendations:**
+- ✅ After completing any website recreation project
+- ✅ When you create custom analysis scripts 3+ times
+- ✅ When manual inspection takes >30 minutes
+- ✅ When you discover toolkit output was inaccurate
+
+**Where to Share:**
+- Create issue in web-analysis-toolkit repository
+- Add to project documentation in `docs/toolkit-feedback/`
+- Share with user for toolkit maintainer communication
+
+**Real Example - Mobile Menu Analyzer Recommendation:**
+```
+During dental-static project, spent 45 minutes manually inspecting:
+- Hamburger menu breakpoint (767px)
+- Modal slide-in positioning (right: 0, width: 75%, max-width: 280px)
+- Animation properties (transform, transition timing)
+- SVG icon source and styling
+
+Current toolkit has NO tool for interactive components requiring clicks.
+Needed: analyzeMobileMenu(url, breakpoint) that clicks hamburger 
+and extracts modal positioning, dimensions, animations automatically.
+```
+
+**Why This Matters:**
+- Improves toolkit for entire community
+- Prevents future agents from repeating same manual work
+- Creates competitive advantage through better tooling
+- Documents real-world usage patterns
+
 **Remember**: Always extract exact specifications rather than approximating. This prevents hours of revision cycles and ensures professional results.
 
 ## Code Standards & Practices
@@ -347,43 +419,40 @@ async def process_query_with_rag_and_history(  # ← Unnecessary new method
 
 **MANDATORY: Token Budget Monitoring at Commits**
 
-**After EVERY git commit, estimate token usage and warn if needed.**
+**After EVERY git commit, check actual token usage from system warnings and warn if needed.**
 
-### **Estimation Heuristics (Rough Token Count)**
+### **Real-Time Token Monitoring**
 
-After each commit, estimate based on:
-- **Conversation exchanges**: ~500-1000 tokens per user message + agent response
-- **Tool calls**: ~200-500 tokens per tool invocation
-- **File reads**: ~1 token per 4 characters read
-- **Large file operations**: Can add 10k-50k tokens quickly
-- **Verbose explanations**: Add ~500-2000 tokens per detailed response
+**CRITICAL: Use Actual Token Data from System Warnings**
+
+After each tool call, look for the system warning message that appears automatically:
+```
+<system_warning>Token usage: 62350/1000000; 937650 remaining</system_warning>
+```
+
+**Extract the actual usage number** (e.g., 62350 in the example above) and use that for accurate monitoring.
 
 ### **Warning Thresholds**
 
-Estimate tokens after commit. If indicators suggest HIGH usage:
+Check actual token usage after commit. Use the EXACT numbers from system warnings:
 
-**🟡 YELLOW ALERT (Estimated 500k-700k tokens):**
-> "💭 **Token Budget Notice**: This has been an extensive session with [X] commits, [Y] tool calls, and multiple large file operations. We're likely around 500k-700k tokens. Consider requesting a handoff summary if you're planning significant additional work."
+**🟡 YELLOW ALERT (500k-700k tokens):**
+> "💭 **Token Budget Notice**: Current session usage is [ACTUAL_TOKENS] tokens. We're approaching significant context buildup. Consider requesting a handoff summary if you're planning major additional work."
 
-**🟠 ORANGE ALERT (Estimated 700k-900k tokens):**
-> "⚠️ **Token Budget Warning**: We're deep into this session with substantial context built up (estimated 700k-900k tokens). **Recommend requesting a handoff summary soon** to avoid unexpected summarization during critical work."
+**🟠 ORANGE ALERT (700k-900k tokens):**
+> "⚠️ **Token Budget Warning**: Current session usage is [ACTUAL_TOKENS] tokens. **Recommend requesting a handoff summary soon** to avoid unexpected summarization during critical work."
 
-**🔴 RED ALERT (Estimated 900k+ tokens):**
-> "🚨 **TOKEN BUDGET CRITICAL**: This session is very extensive (estimated 900k+ tokens). **Strongly recommend creating a handoff summary NOW** before continuing. Auto-summarization could interrupt at any moment during complex operations."
+**🔴 RED ALERT (900k+ tokens):**
+> "🚨 **TOKEN BUDGET CRITICAL**: Current session usage is [ACTUAL_TOKENS] tokens. **Strongly recommend creating a handoff summary NOW** before continuing. Auto-summarization could interrupt at any moment during complex operations."
 
-### **Calculation at Each Commit**
+### **Monitoring Protocol at Each Commit**
 
-After running `git commit`, perform quick estimation:
+After running `git commit`:
 
-```
-Estimated tokens = 
-  (conversation_exchanges × 750) +
-  (tool_calls × 350) + 
-  (total_chars_read ÷ 4) +
-  (verbose_responses × 1000)
-```
-
-If estimate > 500k tokens, provide appropriate warning above.
+1. **Check Last System Warning**: Look at the most recent `<system_warning>` message
+2. **Extract Actual Usage**: Get the first number (e.g., 62350 from "62350/1000000")  
+3. **Apply Threshold**: Use actual number against 500k/700k/900k thresholds
+4. **Warn Appropriately**: Provide specific warning with actual token count
 
 ### **User-Requested Handoff Summary Template**
 
@@ -427,11 +496,12 @@ When user requests handoff (or you recommend it), provide:
 - Can take 5+ minutes during critical operations
 - May lose nuanced context in automated summary
 
-**The Commit-Based Estimation Solution:**
-- Proactive warnings at natural breakpoints
+**The Commit-Based Monitoring Solution:**
+- Proactive warnings at natural breakpoints using ACTUAL token counts
 - User maintains control over session transitions
 - Critical context preserved in deliberate handoff
 - Smooth continuation across agent sessions
+- **Accurate monitoring** eliminates guesswork and false alarms
 
 **Cost of Ignoring:**
 - Unexpected delays during deployment or complex operations
@@ -444,11 +514,11 @@ When user requests handoff (or you recommend it), provide:
 ```
 ✅ Successfully committed v2.2.0 release
 
-💭 Token Budget Notice: This session has had 6 commits, 
-45+ tool calls, and extensive file operations. Estimated token 
-usage: ~650k. If you're planning more significant work (like 
-testing the migration or additional features), consider requesting 
-a handoff summary to ensure smooth continuation.
+💭 Token Budget Notice: Current session usage is 650,750 tokens. 
+We're approaching significant context buildup. If you're planning 
+more significant work (like testing the migration or additional 
+features), consider requesting a handoff summary to ensure smooth 
+continuation.
 ```
 
 ## Development Workflow
